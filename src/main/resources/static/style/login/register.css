@@ -1,0 +1,243 @@
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+    font-family: 'GmarketSansMedium', Arial, sans-serif;
+}
+
+.container {
+    width: 1000px;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+    border-radius: 15px;
+    font-family: 'GmarketSansMedium', Arial, sans-serif;
+}
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 16px;
+}
+h2 {
+    font-size: 2.5em;
+    margin: 0px;
+    margin-right: 20px;
+    margin-left: 20px;
+    padding-top: 10px;
+}
+.btn-group {
+    margin: 0 0 0 50px;
+}
+.btn-group button {
+	padding: 10px 20px;
+	border: none;
+	background-color: #ddd;
+	color: #333;
+	cursor: pointer;
+	font-size: 18px;
+	border-radius: 20px;
+	margin: 0 5px;
+	font-family: 'GmarketSansMedium', Arial, sans-serif;
+	padding-top: 13px;
+}
+.btn-group .active {
+	font-size: 18px;
+    background-color: #45a049;
+    color: #fff;
+}
+.input_id{
+    width: 390px;
+    height: 45px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 18px;
+    padding-bottom: 6px;
+    font-family: 'GmarketSansMedium', Arial, sans-serif;
+}
+.input_text, .input_tel, .input_pw{
+    width: 500px;
+    height: 45px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 18px;
+    padding-bottom: 6px;
+    font-family: 'GmarketSansMedium', Arial, sans-serif;
+}
+
+.input_email, .input_ck {
+    width: 345px;
+    height: 45px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 18px;
+    padding-bottom: 6px;
+    font-family: 'GmarketSansMedium', Arial, sans-serif;
+}
+.onclick_1 {
+	height: 45px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #45a049;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-family: 'GmarketSansMedium', Arial, sans-serif;
+    padding-bottom: 6px;
+    
+}
+.onclick_2 {
+	width: 150px;
+	height: 45px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #45a049;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-family: 'GmarketSansMedium', Arial, sans-serif;
+    padding-bottom: 6px;
+}
+.submit-btn {
+	height: 45px;
+	width: 20%;
+    padding: 10px 20px;
+    border: none;
+    background-color: #45a049;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-family: 'GmarketSansMedium', Arial, sans-serif;
+    padding-bottom: 6px;
+}
+.hidden {
+    display: none;
+}
+/* 비활성화된 버튼 스타일 */
+.disabled {
+    opacity: 0.5; /* 투명도 조정 */
+    pointer-events: none; /* 클릭 이벤트 비활성화 */
+}
+.container2 {
+    width: 1000px;
+    max-width: 600px;
+    margin: 50px auto 10px ;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+    border-radius: 15px;
+    font-family: 'GmarketSansMedium', Arial, sans-serif;
+}
+
+
+
+
+
+.terms-container {
+	margin: 20px;
+	font-family: Arial, sans-serif;
+	text-align: left;
+	font-size: 18px;
+	font-family: 'GmarketSansMedium', Arial, sans-serif;
+}
+.terms-header {
+    margin-bottom: 10px;
+    font-size: 22px;
+	position: relative;
+    text-align: center;
+    padding-bottom: 5px;
+    border-bottom: solid 1px;
+}
+.agree_all{
+	top: -5px;
+	right: 0;
+	display: block;
+	position: absolute;
+	height: 30px;
+	width: 30px;
+}
+.terms-group {
+	position: relative;
+    margin-bottom: 10px;
+}
+.terms-item {
+    margin-left: 20px;
+}
+.details {
+    display: none;
+}
+.details.open {
+    display: block;
+}
+.expand-link {
+    cursor: pointer;
+    color: gray;
+    font-size: 13px;
+    text-decoration: underline;
+}
+
+.checkbox{
+	height: 25px;
+	width: 25px;
+	display: block;
+	position: absolute;
+	right: 3px;
+	top: -5px;
+}
+
+/* 개인정보 이용약관 */
+.details {
+	margin: 10 0 10 20;
+    width: 510px;
+    max-height: 100px; /* 박스의 최대 높이를 지정합니다. */
+    overflow-y: auto; /* 세로 스크롤을 가능하게 합니다. */
+    border: 1px solid #ccc; /* 박스에 테두리를 추가합니다. */
+    padding: 10px; /* 박스 안의 여백을 줍니다. */
+    background-color: #f9f9f9; /* 박스의 배경색을 지정합니다. */
+    font-size: 12px;
+}
+.policy-table{
+	background-color: #f9f9f9; /* 박스의 배경색을 지정합니다. */
+    font-size: 12px;
+	border: 1px solid #ccc; /* 박스에 테두리를 추가합니다. */
+	border-collapse: collapse;
+}
+
+.policy-table td, tr, tr ,th{
+	background-color: #f9f9f9; /* 박스의 배경색을 지정합니다. */
+    font-size: 12px;
+	border: 1px solid #ccc; /* 박스에 테두리를 추가합니다. */
+	margin: 0px;
+	padding: 5px;
+}
+
+.policy-table th{
+	background-color: darkgray; /* 박스의 배경색을 지정합니다. */
+    font-size: 12px;
+	border: 1px solid #ccc; /* 박스에 테두리를 추가합니다. */
+	margin: 0px;
+	padding: 5px;
+}

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.boot.dao.ResumetbDAO">
+	
+	<!-- 이력서 저장 -->
+	<insert id="resumesave">
+		<selectKey keyProperty="prono" resultType="int" order="BEFORE">
+			select ifnull(max(prono), 0) + 1 as prono
+			from resumetb
+			where puserid = #{puserid}
+		</selectKey>
+		insert into resumetb (puserid, prono, protitle, prstitle, pname, gender, birdy, imgcd, email, phone, paddr,
+							  prsup, prsself, classgb, shoolnm, grade, gradesta, majornm, credit, score,
+							  sdate, edate, salary, armgu, propo, proself, prcnt, job, adate)
+					values (#{puserid}, #{prono}, #{protitle}, #{prstitle}, #{pname}, #{gender}, #{birdy}, #{imgcd}, #{email}, #{phone}, #{paddr},
+							#{prsup}, #{prsself}, #{classgb}, #{shoolnm}, #{grade}, #{gradesta}, #{majornm}, #{credit}, #{score},
+							#{sdate}, #{edate}, #{salary}, #{armgu}, #{propo}, #{proself}, #{prcnt}, #{job}, now())
+	</insert>
+	
+	<!-- 페이징처리한다고 수정 -->
+	<select id="resumelist" resultType="com.boot.dto.ResumetbDTO">
+		select puserid, prono, protitle, prstitle, imgno, usetb, gubun, uuid, uploadpath, adate, rn, representative
+		from
+		(
+			select puserid, prono, protitle, prstitle, imgno, usetb, gubun, uuid, uploadpath, adate,
+				   row_number() over(order by prono desc) as rn, representative
+			from
+			(
+				select a.puserid, a.prono, a.protitle, a.prstitle, b.imgno, b.usetb, b.gubun, b.uuid, b.uploadpath, a.adate, a.representative
+			    from resumetb a
+			    left outer join imgtb b on (b.usetb = 'resumetb' and b.gubun = concat(a.puserid, '_', a.prono))
+			) as a
+			where puserid = #{puserid}
+		) as a
+		where rn between ((#{pageNum} - 1) * #{amount}) + 1 and #{pageNum} * #{amount};
+	</select>
+	
+	<!-- 페이징 카운터 -->
+	<select id="getTotalCount" resultType="int">
+		select count(*)
+        from
+			(	
+				select a.puserid, a.prono, a.protitle, a.prstitle, b.imgno, b.usetb, b.gubun, b.uuid, b.uploadpath, a.adate
+			    from resumetb a
+			    left outer join imgtb b on (b.usetb = 'resumetb' and b.gubun = concat(a.puserid, '_', a.prono))
+			) as a
+		where puserid = #{puserid} 
+	</select>
+	
+	<!-- 선택한 리스트 출력 -->
+	 <select id="resumeselect" resultType="com.boot.dto.ResumetbDTO">
+        select a.puserid, a.prono, a.protitle, a.prstitle, a.pname, a.gender, a.birdy, a.imgcd, a.email, 
+               a.phone, a.paddr, a.prsup, a.prsself, a.classgb, a.shoolnm, a.grade, a.gradesta, a.majornm,
+               a.credit, a.score, a.sdate, a.edate, a.salary, a.armgu, a.propo, a.proself, a.prcnt, a.adate, a.mdate,
+               b.imgno, b.usetb, b.gubun, b.uuid, b.uploadpath, a.representative, a.job
+        from resumetb a
+        left outer join imgtb b on (b.usetb = 'resumetb' and b.gubun = concat(a.puserid, '_', a.prono))
+        where a.puserid = #{puserid} and a.prono = #{prono}
+    </select>
+	
+	<!-- 이력서 번호 최댓값 가져오기 -->
+	<select id="getMaxProno" resultType="int">
+		select max(prono) as prono
+		from resumetb
+		where puserid = #{puserid} 
+	</select>
+	
+	<!-- 선택한 이력서 삭제 -->
+	<delete id="resumedelete">
+		delete from resumetb
+		where puserid = #{puserid} and prono = ${prono}
+	</delete>
+	
+	<!-- 이력서 뷰어에서 출력 -->
+    <select id="resume_view" resultType="com.boot.dto.ResumetbDTO">
+        select a.puserid, a.prono, a.protitle, a.prstitle, a.pname, a.gender, a.birdy, a.imgcd, a.email, 
+               a.phone, a.paddr, a.prsup, a.prsself, a.classgb, a.shoolnm, a.grade, a.gradesta, a.majornm,
+               a.credit, a.score, a.sdate, a.edate, a.salary, a.armgu, a.propo, a.proself, a.prcnt, a.adate, a.mdate,
+               b.imgno, b.usetb, b.gubun, b.uuid, b.uploadpath, a.representative, c.sortnm as job
+        from resumetb a
+        left outer join imgtb b on (b.usetb = 'resumetb' and b.gubun = concat(a.puserid, '_', a.prono))
+        left outer join jobsorttb c on a.job = c.sortno
+        where a.puserid = #{puserid} and a.prono = #{prono}
+    </select>
+	
+	<!-- 지원하기 팝업창에서 이력서 목록 출력 -->
+	<select id="getResumeList" resultType="com.boot.dto.ResumetbDTO">
+        SELECT prono, protitle
+        FROM resumetb
+        WHERE puserid = #{puserid}
+    </select>
+	
+	<!-- 이력서 업데이트 -->
+	<update id="resumeupdate">
+		update resumetb set protitle = #{protitle}, prstitle = #{prstitle}, pname = #{pname}, gender = #{gender}, birdy = #{birdy}, imgcd = #{imgcd}, email = #{email}, 
+						    phone = #{phone}, paddr = #{paddr}, prsself = #{prsself}, classgb = #{classgb}, shoolnm = #{shoolnm}, gradesta = #{gradesta}, majornm = #{majornm}, 
+						    credit = #{credit}, score = #{score}, sdate = #{sdate}, edate = #{edate}, salary = #{salary}, armgu = #{armgu}, proself = #{proself}, propo = #{propo},
+        					job = #{job}, mdate = now()
+		where puserid = #{puserid} and prono = #{prono} 
+	</update>
+	
+	<!-- 모든 이력서의 대표 이력서 상태 해제 -->
+    <update id="resetAllRepresentative">
+        UPDATE resumetb
+        SET representative = false
+        WHERE puserid = #{puserid}
+    </update>
+
+    <!-- 지정된 이력서를 대표 이력서로 설정 -->
+    <update id="setRepresentative">
+        UPDATE resumetb
+        SET representative = true
+        WHERE puserid = #{puserid} AND prono = #{prono}
+    </update>
+	
+	<select id="resume_v" resultType="com.boot.dto.ResumetbDTO">
+	    SELECT a.puserid, a.prono, a.protitle, a.prstitle, a.pname, a.gender, a.birdy, a.imgcd, a.email, 
+	           a.phone, a.paddr, a.prsup, a.prsself, a.classgb, a.shoolnm, a.grade, a.gradesta, a.majornm,
+	           a.credit, a.score, a.sdate, a.edate, a.salary, a.armgu, a.propo, a.proself, a.prcnt, a.adate, a.mdate,
+	           b.imgno, b.usetb, b.gubun, b.uuid, b.uploadpath, get_skillnms(a.puserid, a.prono) as skillnms
+	    FROM resumetb a
+	    LEFT OUTER JOIN imgtb b ON b.usetb = 'resumetb' AND b.gubun = CONCAT(a.puserid, '_', a.prono)
+	    WHERE a.puserid = #{puserid} AND a.prono = #{prono}
+	</select>
+	
+	<sql id="skillSearch"> <!--스킬 검색 조건 필요 -->
+		<where>
+			<if test="skill_s != null and skill_s != ''">
+			    and
+			    <!-- skill_s 문자열을 ','로 분리하여 배열로 만들어 IN 절에 사용 --> 
+		        <foreach item="item" index="index" collection="skill_s.split(',')" open="(" separator="and" close=")">
+	                (skills &amp; power(2, (#{item} + 0)-1)) = power(2, (#{item} + 0)-1)
+	            </foreach>
+		    </if>
+			<if test="loc_s != null and loc_s != ''">
+			    and
+		        <foreach item="item" index="index" collection="loc_s.split(',')" open="(" separator="and" close=")">
+	                paddr like concat('%', #{item}, '%')
+	            </foreach>
+		    </if>
+		    <if test="pcareer_s != null and pcareer_s != ''">
+                and cnt in 
+                <foreach item="item" index="index" collection="pcareer_s.split(',')" open="(" separator=" , " close=")">
+                	 #{item}
+                </foreach>
+            </if>
+		</where>
+	</sql>
+	
+	<select id="skillselect" resultType="com.boot.dto.ResumetbDTO">
+    	select puserid, prono, protitle, pname, gender,
+	           phone, paddr, skills, skillnos, skillnms, rn, cnt
+        from
+        (
+	        select puserid, prono, protitle, pname, gender,
+	        	   phone, paddr, skills, skillnos, skillnms, 
+	               row_number() over(order by adate asc) as rn, cnt
+	        from
+	        (
+	           select a.puserid, a.prono, a.protitle, a.pname, a.gender, 
+	                 a.phone, a.paddr, b.skills, a.adate,
+	                 get_skillnos(a.puserid, a.prono) as skillnos,
+	                 get_skillnms(a.puserid, a.prono) as skillnms,
+	                 case when ifnull(c.cnt, 0) > 0 then 1
+              		 else 0 end as cnt
+	           from resumetb a
+	           left outer join (
+	              select a.puserid, a.prono, sum(b.skills) as skills
+	              from skilltb a
+	              inner join (
+	                 select skillno, skillnm, power(2, skillno - 1) as skills
+	                 from showskilltb 
+	              ) b on (a.sequeno = b.skillno)
+	              group by a.puserid, a.prono
+	           ) b on (a.puserid = b.puserid and a.prono = b.prono)
+	           left outer join (
+	              select puserid, prono, count(*) as cnt
+	              from pcareertb
+	              group by puserid, prono
+	            ) c on (a.puserid = c.puserid and a.prono = c.prono)
+	           where representative = 1  
+	        ) as a
+	        <include refid="skillSearch"/>
+        ) as a
+        where rn between ((#{pageNum} - 1) * #{amount}) + 1 and #{pageNum} * #{amount}
+    </select>
+    
+    <select id="getCount" resultType="int">
+        select count(*)
+        from
+        (
+	        select a.puserid, a.prono, a.protitle, a.pname, a.gender, 
+	               a.phone, a.paddr, b.skills, 
+	               get_skillnos(a.puserid, a.prono) as skillnos,
+	               get_skillnms(a.puserid, a.prono) as skillnms,
+	               row_number() over(order by a.adate asc) as rn, 
+	               case when ifnull(c.cnt, 0) > 0 then 1
+	          	   else 0 end as cnt
+	        from resumetb a
+	        inner join (
+	            select a.puserid, a.prono, sum(b.skills) as skills
+	            from skilltb a
+	            inner join (
+	                select skillno, skillnm, power(2, skillno - 1) as skills
+	                from showskilltb 
+	            ) b on (a.sequeno = b.skillno)
+	            group by a.puserid, a.prono
+	        ) b on (a.puserid = b.puserid and a.prono = b.prono)
+			left outer join (
+	          select puserid, prono, count(*) as cnt
+	          from pcareertb
+	          group by puserid, prono
+	        ) c on (a.puserid = c.puserid and a.prono = c.prono)            
+	        where representative = 1        
+		) as a
+    	<include refid="skillSearch"></include>
+    </select>
+	
+	<select id="resumeAll" resultType="com.boot.dto.ResumetbDTO">
+		select puserid, prono
+		from resumetb
+		where puserid = #{puserid}
+	</select>
+	
+	<delete id="resumeAllDelete">
+		delete from resumetb
+		where puserid = #{puserid}
+	</delete>
+	
+</mapper>

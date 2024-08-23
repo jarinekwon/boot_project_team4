@@ -1,0 +1,12 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- id = "dao 메소드이름?"  -->
+<mapper namespace="com.boot.dao.JobsorttbDAO">
+	<select id="jobsortAll" resultType="com.boot.dto.JobsorttbDTO">
+		select sortno, sortnm
+		from jobsorttb
+	</select>
+
+</mapper>

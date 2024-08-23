@@ -1,0 +1,100 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+	padding: 30px;
+	background-color:  #fff;
+	border-radius: 10px;
+	margin: 0 auto;
+	border: 1px solid #ddd;
+	transition: box-shadow 0.3s ease;
+	max-width: 1000px;
+}
+.applicant-list {
+	position: relative;
+	display: flex;
+	align-items: center;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	margin-bottom: 20px;
+	border-radius: 10px;
+	border: 1px solid #ddd;
+	transition: box-shadow 0.3s ease;
+	background-color: rgb(249, 255, 247);
+}
+
+.applicant-list h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.applicant {
+    align-items: center;
+    /*align-content: center;*/
+}
+
+.view-button1 {
+    background-color: #15b100;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-right: 10px;
+}
+
+.view-button1:hover {
+    background-color: #0e6600;
+}
+
+.view-button2 {
+    background-color: #45a049;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    margin-right: 10px;
+}
+
+.view-button2:hover {
+    background-color: #0e6600; /* 임시로 두 번째 버튼의 hover 색상을 변경 */
+}
+.jobaplylist{
+	flex-grow: 1;
+    padding: 10px;
+}
+.imgarea {
+	float: left;
+	margin-right: 10px;
+}
+
+button {
+	display: flex;
+	gap: 10px;
+    padding: 0;
+    right: 10px;
+    cursor: pointer;
+}
+
+.back-button-wrap{
+   display: flex;
+}
+.back-button {
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+   border-radius: 4px;
+}
+.back-button:hover {
+    color: #007bff;;
+}

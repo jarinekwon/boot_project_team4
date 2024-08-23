@@ -1,0 +1,97 @@
+body {
+    font-family: 'GmarketSansMedium', Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 600px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #45a049;
+    margin-bottom: 30px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 560px;
+    margin-bottom: 20px;
+    table-layout: fixed; /* 테이블 레이아웃을 고정으로 설정 */
+}
+
+.table_td {
+	font-family: 'GmarketSansMedium', Arial, sans-serif;
+    width: 65px;
+    padding: 5px 5px;
+    text-align: right;
+}
+
+.table_td + td {
+/*	border: 1px solid #ccc;*/
+    width: calc(100% - 200px); /* 나머지 너비를 할당 */
+/*	padding-left: 20px;  좌측 패딩 추가 */
+}
+
+input {
+    height: 50px;
+    width: 100%; /* 부모 요소의 너비에 맞추기 */
+    /* border: none; */
+    padding: 5px;
+	box-sizing: border-box;
+}
+
+textarea {
+    width: 100%;
+    /* border: none; */
+    padding: 5px;
+    resize: none; /* 크기 조절 비활성화 */
+	box-sizing: border-box;
+	margin-top: 15px;
+}
+
+.inpDefault {
+    width: 150px;
+    height: 30px;
+    line-height: 40px;
+    /* padding: 20px 17px 0 17px; */
+    border: none;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+}
+
+.apply-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.apply-button button {
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+
+.apply-button .apply {
+    background-color: #45a049;
+}
+
+.apply-button .apply:hover {
+    background-color: darkgreen;
+}

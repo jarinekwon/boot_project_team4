@@ -1,0 +1,20 @@
+.choosebutton{
+    margin: -24px 0 0 580px;
+}
+
+.choosebutton button{
+	font-family: 'GmarketSansMedium', Arial, sans-serif;
+	width: 50px;
+	height: 30px;
+	color: black;
+	background-color: rgb(255,255,255);
+/*	border-radius: 10px;;*/
+/*	padding: 0px;*/
+	border: none;
+/*	margin-bottom: 17px;*/
+	cursor: pointer;
+}
+
+.choosebutton button:hover{
+	color: rgb(143, 215, 23);
+}

@@ -1,0 +1,211 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid rgb(217, 217, 217);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid gainsboro;
+}
+
+header h1 {
+    color: green;
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+nav ul li.user {
+    font-weight: bold;
+    color: green;
+}
+
+/* 이력서 관리 섹션 스타일 */
+.resume-management {
+    margin-top: 20px;
+}
+
+.resume-management h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 24px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+#subtitle {
+    color: gray;
+    font-size: 15px;
+}
+
+.resume-card {
+    white-space: nowrap;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: rgb(249, 255, 247);
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    transition: box-shadow 0.3s ease;
+}
+
+/* 이력서 항목 스타일 */
+.resume-item {
+    white-space: nowrap;
+    height: 150px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: rgb(249, 255, 247);
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    transition: box-shadow 0.3s ease;
+}
+
+.f-s-b {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.resume-item:hover, .resume-card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.resume-details {
+    white-space: nowrap;
+    flex-grow: 1;
+}
+
+.resume-details p {
+    margin: 0;
+}
+
+.resume-details p#title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.resume-details p#title:hover {
+    color: #007bff;
+}
+
+.resume-details p#subtitle {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* 버튼 스타일 */
+.buttons {
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    gap: 10px;
+    margin-bottom: -110px;
+}
+
+.buttons .view {
+    background-color: #45a049;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.buttons .view:hover {
+    background-color: darkgreen;
+}
+
+.icon-buttons {
+    position: absolute;
+    top: -120px;
+    right: -5px;
+    display: flex;
+    gap: 30px;
+}
+
+.icon-buttons .edit, .icon-buttons .delete {
+    cursor: pointer;
+    font-size: 24px; /* 아이콘 크기 */
+    color: rgb(172, 172, 172); /* 아이콘 색상 */
+    background-color: transparent; /* 배경 색상 없음 */
+    border: none; /* 테두리 없음 */
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+.icon-buttons .edit:hover, .icon-buttons .delete:hover {
+    color: rgb(0,0,0); /* 마우스 오버 시 색상 변경 */
+}
+
+.icon-buttons .edit {
+    font-size: 20px; /* 수정 아이콘 크기 */
+}
+
+/* 새로운 모집 버튼 스타일 */
+#addButtonDiv {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    text-align: center;
+    background-color: rgb(249, 255, 247);
+    margin-bottom: 15px;
+    padding: 20px;
+    transition: border 0.3s ease, transform 0.3s ease;
+}
+
+#addButtonDiv:hover {
+	cursor: pointer;
+    /* border: 1px solid rgba(0, 162, 255, 0.699); */
+    transform: scale(1.01);
+}
+
+#addButtonDiv span {
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: font-size 0.3s ease;
+}
+
+#addButtonDiv span:hover {
+    font-size: 26px;
+}

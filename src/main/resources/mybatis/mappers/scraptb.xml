@@ -1,0 +1,105 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.dao.ScraptbDAO">
+	<sql id="searchquery">
+		<if test='type == "all" and keyword != ""'>
+        	and cusnm like concat('%', #{keyword}, '%') or caddr like concat('%', #{keyword}, '%')
+      	</if>
+		<if test='type == "nm" and keyword != ""'>
+			and cusnm like concat('%', #{keyword}, '%')
+		</if>
+		<if test='type == "lc" and keyword != ""'>
+			and caddr like concat('%', #{keyword}, '%')
+		</if>
+	</sql>
+
+    <insert id="scrap_p_insert">
+		insert into scraptb(authorid, scrapid, csrno, scrapno, usetype, adate) 
+				values(#{authorid}, #{scrapid}, '1', #{scrapno}, 'p', now())
+    </insert>
+    
+    <insert id="scrap_c_insert">
+		insert into scraptb(authorid, scrapid, csrno, scrapno, usetype, adate) 
+				values(#{authorid}, #{scrapid}, '1', #{scrapno}, 'c', now())
+    </insert>
+    
+    <delete id="scrap_p_delete">
+    	delete from scraptb
+    	where authorid = #{authorid} and scrapid = #{scrapid} and csrno = 1 and scrapno = #{scrapno}
+    </delete>
+    
+    <delete id="scrap_c_delete">
+    	delete from scraptb
+    	where authorid = #{authorid} and scrapid = #{scrapid} and csrno = 1 and scrapno = #{scrapno}
+    </delete>
+    
+    <select id="scrap_p_select" resultType="com.boot.dto.ScraptbDTO">
+    	select authorid, scrapid, csrno, scrapno
+    	from scraptb
+    	where authorid = #{puserid} and scrapid = #{writer} and csrno = 1 and scrapno = #{jobno} and usetype = 'p' 
+    </select>
+    
+    <select id="allselect_p" resultType="com.boot.dto.ScraptbDTO">
+    	select rn, authorid, scrapid, cusnm, csrno, caddr, scrapno, adate, jobtitle, ddate, 
+    		   edunm, careernm , loc01, wrktynm, daycha, jobno
+		from
+		(
+			select a.authorid, a.scrapid, a.csrno, a.scrapno, b.cusnm, b.caddr, a.adate,
+				   c.jobtitle, c.ddate, c.loc01, d.edunm, e.careernm,
+				   f.wrktynm, ifnull(g.jobno, 0) as jobno,
+				   TIMESTAMPDIFF(DAY, now(), date(c.ddate)) as daycha,
+					row_number() over(order by adate desc) as rn
+			from scraptb a
+			inner join cusertb b on (a.scrapid = b.cuserid )
+			inner join jobposttb c on (a.scrapid = c.cuserid and a.scrapno = c.jobno)
+  			inner join edugbtb d on (c.educa = d.eduno)
+			inner join careertb e on (c.prsup = e.careerno)
+			inner join wrktygbtb f on (c.wrkty = f.wrktyno)
+			left outer join jobaplytb g on (a.authorid = g.puserid and a.scrapid = g.cuserid and a.csrno = g.csrno and a.scrapno = g.jobno)
+			where a.authorid = #{authorid} and a.usetype='p'
+		) as a
+		where rn between ((#{pageNum} - 1) * #{amount}) + 1 and #{pageNum} * #{amount}
+<!-- 		order by rn asc -->
+		order by 
+		<choose>
+			<when test="sort == 'deadline'">daycha asc</when>
+			<otherwise>adate DESC</otherwise>
+		</choose>
+    </select>
+    
+    
+    <select id="allcount_p" resultType="int">
+    	select count(*)
+		from
+		(
+			select a.authorid, a.scrapid, b.cusnm, b.caddr, a.adate,
+				   c.jobtitle, c.ddate, c.loc01, d.edunm, e.careernm,
+				   f.wrktynm, ifnull(g.jobno, 0) as jobno,
+				   TIMESTAMPDIFF(DAY, now(), date(c.ddate)) as daycha,
+					row_number() over(order by adate desc) as rn
+			from scraptb a
+			inner join cusertb b on (a.scrapid = b.cuserid )
+			inner join jobposttb c on (a.scrapid = c.cuserid and a.scrapno = c.jobno)
+  			inner join edugbtb d on (c.educa = d.eduno)
+			inner join careertb e on (c.prsup = e.careerno)
+			inner join wrktygbtb f on (c.wrkty = f.wrktyno)
+			left outer join jobaplytb g on (a.authorid = g.puserid and a.scrapid = g.cuserid and a.csrno = g.csrno and a.scrapno = g.jobno)
+			where a.authorid = #{authorid} and a.usetype='p'
+		) as a
+		where 1=1
+		<include refid="searchquery"></include>
+		 
+    </select>
+
+    <delete id="deleteAll_p">
+		delete from scraptb
+		where authorid = #{puserid}    
+    </delete>
+    
+    <delete id="deleteAll_c">
+    	delete from scraptb
+		where scrapid = #{cuserid}  
+    </delete>
+</mapper>

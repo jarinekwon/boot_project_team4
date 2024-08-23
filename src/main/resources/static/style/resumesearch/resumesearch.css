@@ -1,0 +1,337 @@
+@import url("../page.css");
+@import url(../common.css);
+
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333; /* 텍스트 색상 추가 */
+}
+
+.container {
+    width: 1200px; /* 컨테이너의 폭을 조정 */
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid rgb(217, 217, 217);
+}
+
+.header {
+    display: flex;
+    font-weight: bold; /* 헤더 텍스트 두껍게 */
+    background-color: #f4f4f4; /* 헤더 배경색 */
+    padding: 10px 0; /* 상하 패딩 */
+    margin-bottom: 10px; /* 리스트 아이템과의 간격 추가 */
+}
+
+.header-item {
+    border-right: 1px solid #ddd; /* 각 아이템마다 세로선 추가 */
+    box-sizing: border-box;
+    padding: 0 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 마지막 헤더 항목의 오른쪽 경계선 제거 */
+.header-item:last-child {
+    border-right: none;
+}
+
+.header-name, .list-item .name {
+    width: 10%; /* 이름 칸의 너비 */
+	text-align: center; /* 왼쪽 정렬 */
+}
+
+.header-title, .list-item .title {
+    width: 20%; /* 제목 칸의 너비 */
+}
+
+.header-skill, .list-item .skill {
+    width: 45%; /* 스킬 칸의 너비 */
+}
+
+.header-location, .list-item .location {
+    width: 25%; /* 지역 칸의 너비 */
+}
+
+.header-cnt, .list-item .cnt {
+    width: 8%; /* 경력사항 칸의 너비 */
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0; /* 상하 패딩 조정 */
+    background-color: #fff;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    transition: box-shadow 0.3s ease;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.list-item:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 호버 시 그림자 추가 */
+    border: 1px solid rgb(143, 215, 23);
+}
+
+.list-item > div {
+    padding: 0 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-right: 1px solid #ddd; /* 각 아이템마다 세로선 추가 */
+    box-sizing: border-box;
+}
+
+.list-item > div:last-child {
+    border-right: none; /* 마지막 아이템의 오른쪽 경계선 제거 */
+}
+
+.list-item .name {
+    text-align: left; /* 왼쪽 정렬 */
+}
+
+.list-item .title {
+    text-align: center; /* 중앙 정렬 */
+}
+
+.list-item .skill {
+    margin-left: 5px;
+    text-align: left; /* 왼쪽 정렬 */
+}
+
+.list-item .location {
+    text-align: center; /* 중앙 정렬 */
+}
+
+/* 링크의 기본 스타일 */
+.title a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: black; /* 기본 텍스트 색상 */
+}
+
+/* 마우스 커서를 올렸을 때 링크 색상 변경 
+.title a:hover {
+    color: #007bff; /* 마우스 오버 시 글씨 색상 파란색으로 변경
+}
+*/
+.secondtr {
+    cursor: pointer;
+}
+
+.button-nav {
+    display: grid;
+    grid-template-columns: 170px 170px 170px;
+    justify-content: center;
+    margin-top: 10px; /* 위로 더 위치하도록 마진 조정 */
+    padding-bottom: 5px; /* 버튼 아래 패딩 줄이기 */
+    min-width: 1270px;
+    /*padding: 10px 0; /* 위아래 패딩 줄이기 */
+}
+
+.button-nav dl {
+	display: grid;
+	justify-content: center; /* 수평 중앙 정렬 */
+}
+
+.button-nav dl button {
+	align-self: center;
+}
+
+.button-nav button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px; /* 패딩 줄이기 */
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 150px; /* 버튼의 길이 설정 */
+    transition: background-color 0.3s; /* 부드러운 전환 효과 */
+}
+
+.button-nav button:hover {
+    background-color: #45a049; /* 호버 효과 */
+}
+
+.button-nav button.active {
+    background-color: #388E3C;
+}
+
+.scrollable-content {
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+    padding: 10px; /* 내부 콘텐츠와의 간격 */
+    display: none;
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #fff; /* 배경색 추가 */
+    border: 1px solid #ddd; /* 테두리 추가 */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+    border-radius: 5px; /* 테두리 둥글게 */
+}
+
+li {
+    list-style-type: none;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.dropdown-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px; /* 패딩 줄이기 */
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s; /* 부드러운 전환 효과 */
+}
+
+.dropdown-button:hover {
+    background-color: #45a049; /* 호버 효과 */
+}
+
+.dropdown-button.active {
+    background-color: #388E3C;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    top: 140px;
+    z-index: 1;
+    border-radius: 5px; /* 테두리 둥글게 */
+}
+
+.dropdown-content .item {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content .item:hover {
+    background-color: #f1f1f1;
+}
+
+.close-button {
+    display: none;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px; /* 테두리 둥글게 */
+    transition: background-color 0.3s; /* 부드러운 전환 효과 */
+}
+
+.close-button:hover {
+    background-color: #d32f2f;
+}
+
+.search-box {
+    display: none;
+    width: 100%;
+    padding: 10px 0; /* 패딩 줄이기 */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    margin-top: 5px; /* button-nav와 간격 추가 */
+}
+
+.box-show {
+    display: grid;
+    grid-template-columns: 700px 350px;
+    justify-content: center;
+    min-width: 1270px;
+    align-items: center;
+}
+
+.search-box .sb-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s; /* 부드러운 전환 효과 */
+    margin-left: 10px; /* 버튼 사이 여백 추가 */
+}
+
+.search-box .sb-btn:hover {
+    background-color: #45a049; /* 호버 효과 */
+}
+
+.search-box .search-list {
+    width: 65%;
+    padding: 10px;
+}
+
+.selected-item {
+	height: 40px;
+    background-color: transparent; /* 배경색 제거 */
+    color: #333; /* 텍스트 색상 */
+    font-size: 0.9em;
+    margin: 2px;
+    border: none; /* 1px solid #ddd; /* 테두리 추가 */
+    padding: 5px 10px; /* 패딩 추가 */
+    border-radius: 5px; /* 테두리 둥글게 */
+    cursor: pointer;
+    display: inline-flex; /* 아이템을 인라인 플렉스로 변경 */
+    align-items: center; /* 아이템 내 텍스트와 아이콘을 가운데 정렬 */
+    transition: background-color 0.3s; /* 부드러운 전환 효과 */
+}
+
+.button-area {
+	display: flex;
+	justify-content: flex-end;
+	padding: 15px;
+}
+
+.selected-item:hover {
+    background-color: #f1f1f1; /* 호버 시 배경색 */
+}
+
+.selected-item .ico {
+    margin-left: 6px;
+    text-indent: -9999px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    background: url(../../spr.png) no-repeat -86px 0;
+    cursor: pointer;
+}
+
+.show {
+    display: block;
+}
+
+.job-row {
+    cursor: pointer;
+}
+
+.job-row:hover {
+    background-color: rgb(238, 251, 255); /* 원하는 색상으로 변경 */
+}
+
+.dropdown-button,
+.selected-item,
+.sb-btn {
+	font-family: 'GmarketSansMedium';
+}

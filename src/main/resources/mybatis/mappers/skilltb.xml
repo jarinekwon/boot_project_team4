@@ -1,0 +1,37 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.dao.SkilltbDAO">
+	<insert id="skillinsert">
+		insert into skilltb (puserid, prono, sequeno, adate) values (#{puserid}, #{prono}, #{sequeno}, now())
+	</insert>
+	
+	<select id="select_resume" resultType="com.boot.dto.SkilltbDTO">
+		select puserid, prono, sequeno, skillname
+		from
+		(
+			select a.puserid, a.prono, a.sequeno, b.skillnm as skillname
+			from skilltb a
+			inner join showskilltb b on (a.sequeno = b.skillno)
+		) as a
+		where puserid = #{puserid} and prono = #{prono}
+	</select>
+	
+	<delete id="skilldelete">
+		delete from skilltb
+		where puserid = #{puserid} and prono = #{prono} 
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

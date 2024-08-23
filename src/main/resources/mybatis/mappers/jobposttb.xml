@@ -1,0 +1,220 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.dao.JobposttbDAO">
+	<sql id="jobpostSerach"> <!-- 직무, 근무지역, 기업형태 검색 조건 필요 -->
+		<where>
+			<if test="job_s != null and job_s != ''">
+			    AND (
+			        <foreach item="item" index="index" collection="job_s.split(',')" separator=" OR ">
+			            a.wrkty LIKE CONCAT('%', #{item}, '%')
+			        </foreach>
+			    )
+			</if>
+		    <if test="loc_s != null and loc_s != ''">
+		    	and (
+			    	<foreach item="item" index="index" collection="loc_s.split(',')" separator=" OR ">
+			            a.loc01 like CONCAT('%', #{item}, '%')
+			        </foreach>
+		        )
+		    </if>
+			<if test="edu_s != null and edu_s != ''"> <!-- 학력 -->
+			    and a.educa in <!-- 학력 -->
+			    <!-- career_s 문자열을 ','로 분리하여 배열로 만들어 IN 절에 사용 -->
+		        <foreach item="item" index="index" collection="edu_s.split(',')" open="(" separator="," close=")">
+		            #{item}
+		        </foreach>
+		    </if>
+			<if test="career_s != null and career_s != ''"><!-- 경력 -->
+			    and a.prsup in <!-- 경력 -->
+			    <!-- career_s 문자열을 ','로 분리하여 배열로 만들어 IN 절에 사용 -->
+		        <foreach item="item" index="index" collection="career_s.split(',')" open="(" separator="," close=")">
+		            #{item}
+		        </foreach>
+		    </if>
+		    <if test="wrkty_s != null and wrkty_s != ''">
+		    	and a.wrkty in
+		    	<foreach item="item" index="index" collection="wrkty_s.split(',')" open="(" separator="," close=")">
+		            #{item}
+		        </foreach>
+		    </if>
+		</where>
+	</sql>
+    <select id="jobselect" resultType="com.boot.dto.JobposttbDTO">
+	    select cuserid, csrno, jobno, cusnm, jobtitle, position, prsup, careernm, wrktm, salary, educa, edunm,
+			   loc01, wrkty, wrktynm, notic, recno, adate, ddate, daycha, rn
+		from
+		(
+			select a.cuserid, a.csrno, a.jobno, e.cusnm, a.jobtitle, a.position, a.prsup, b.careernm, a.wrktm,
+				   a.salary, a.educa, c.edunm, a.loc01, a.wrkty, d.wrktynm, a.notic, a.recno, a.adate, a.ddate,
+				   TIMESTAMPDIFF(DAY, now(), date(a.ddate)) as daycha,
+				   row_number() over(order by a.adate asc) as rn
+			from jobposttb as a
+			inner join careertb b on (a.prsup = b.careerno)
+			inner join edugbtb c on (a.educa = c.eduno)
+			inner join wrktygbtb d on (a.wrkty = d.wrktyno)
+			inner join cusertb e on (a.cuserid = e.cuserid)
+			<include refid="jobpostSerach"></include>
+		) as a
+		where rn between ((#{pageNum} - 1) * #{amount}) + 1 and #{pageNum} * #{amount};
+    </select>
+    
+    <select id="getCount" resultType="int">
+    	select count(*)
+		from
+		(
+			select a.cuserid, a.csrno, a.jobno, e.cusnm, a.jobtitle, a.position, a.prsup, b.careernm, a.wrktm,
+				   a.salary, a.educa, c.edunm, a.loc01, a.wrkty, d.wrktynm, a.notic, a.recno, a.adate, a.ddate,
+				   TIMESTAMPDIFF(DAY, now(), date(a.ddate)) as daycha,
+				   row_number() over(order by a.adate asc) as rn
+			from jobposttb as a
+			inner join careertb b on (a.prsup = b.careerno)
+			inner join edugbtb c on (a.educa = c.eduno)
+			inner join wrktygbtb d on (a.wrkty = d.wrktyno)
+			inner join cusertb e on (a.cuserid = e.cuserid)
+			<include refid="jobpostSerach"></include>
+		) as a
+    </select>
+    
+    <select id="mainlist" resultType="com.boot.dto.JobposttbDTO">
+        select cuserid, csrno, jobno, cusnm, loc01, jobtitle, ddate, position, skills,
+	   		   imgno, usetb, gubun, uuid, uploadpath, filename, notic
+		from
+		(
+			select a.cuserid, a.csrno, a.jobno, b.cusnm, a.loc01, a.jobtitle, a.ddate, a.position, a.skills,
+				   c.imgno, c.usetb, c.gubun, c.uuid, c.uploadpath, c.filename, a.notic
+			from jobposttb a
+			join cusertb b on (a.cuserid = b.cuserid)
+		    left outer join imgtb c on (c.usetb = 'coinfotb' and gubun = concat(b.cuserid, '_', '1'))
+		) as a
+		order by notic desc
+		LIMIT 10
+    </select>
+    
+    <insert id="recruitadd">
+		<selectKey keyProperty="jobno" resultType="int" order="BEFORE">
+    		select ifnull(max(jobno), 0) + 1 as jobno
+			from jobposttb
+			where cuserid = #{cuserid} and csrno = #{csrno}
+		</selectKey>
+		insert into jobposttb(
+			cuserid, csrno, jobno, jobtitle, jobsubtitle, content,
+			prsup, salary, educa, loc01, wrkty, wrktm, position, skills,
+			duties, pfntcd, wrkcd, benefits, scrnpcd, pamoa, rcmpcd,
+			recno, ddate, adate, mdate
+		) 
+	   	values(
+			#{cuserid}, #{csrno}, #{jobno}, #{jobtitle}, #{jobsubtitle}, #{content},
+			#{prsup}, #{salary}, #{educa}, #{loc01},#{wrkty}, #{wrktm}, #{position}, #{skills},
+			#{duties}, #{pfntcd}, #{wrkcd}, #{benefits}, #{scrnpcd}, #{pamoa}, #{rcmpcd},
+			#{recno}, #{ddate}, now(), #{mdate}
+		)
+    </insert>
+    
+	<select id="recruitinfo" resultType="com.boot.dto.JobposttbDTO">
+		select cuserid, csrno, jobno, jobtitle, jobsubtitle, content,
+			   prsup, salary, educa, loc01, wrkty, wrktm, position, skills,
+			   duties, pfntcd, wrkcd, benefits, scrnpcd, pamoa, rcmpcd,
+			   notic, recno, supno, ddate, adate, mdate,
+			   TIMESTAMPDIFF(DAY, now(), date(ddate)) as daycha
+		from jobposttb 
+		where cuserid = #{cuserid} and csrno = #{csrno} and jobno = #{jobno}
+	</select>
+	
+	<select id="recruitlist" resultType="com.boot.dto.JobposttbDTO">
+        select cuserid, csrno, jobno, jobtitle, jobsubtitle, ddate, adate
+		from jobposttb 
+		where cuserid = #{cuserid}
+    </select>
+	
+	<delete id="recruitdelete">
+		DELETE FROM jobposttb 
+		WHERE cuserid = #{cuserid} and csrno = #{csrno} and jobno = #{jobno}
+	</delete>
+	
+	<update id="recruitupdate">
+	    UPDATE jobposttb
+		SET
+	        jobtitle = #{jobtitle}, jobsubtitle = #{jobsubtitle}, content = #{content},
+	        prsup = #{prsup}, salary = #{salary}, educa = #{educa}, loc01 = #{loc01},
+	        wrkty = #{wrkty}, wrktm = #{wrktm}, position = #{position}, skills = #{skills},
+	        duties = #{duties}, pfntcd = #{pfntcd}, wrkcd = #{wrkcd}, benefits = #{benefits},
+	        scrnpcd = #{scrnpcd}, pamoa = #{pamoa}, rcmpcd = #{rcmpcd}, recno = #{recno},
+	        ddate = #{ddate}, mdate = now()
+	    WHERE
+	        cuserid = #{cuserid} AND csrno = #{csrno} AND jobno = #{jobno}
+	</update>
+
+    <select id="jobaply" resultType="com.boot.dto.JobposttbDTO">
+		select cuserid, csrno, jobno, jobtitle, jobsubtitle, content,
+			   prsup, salary, educa, loc01, wrkty, wrktm, position, skills,
+			   duties, pfntcd, wrkcd, benefits, scrnpcd, pamoa, rcmpcd,
+			   notic, recno, ddate, adate, mdate
+		from jobposttb 
+		where cuserid = #{cuserid} and csrno = #{csrno} and jobno = #{jobno} 
+	</select>
+	
+	<update id="increaseViewCount">
+        update jobposttb set notic = notic + 1, mdate = now()
+      	where cuserid = #{cuserid} and csrno = #{csrno} and jobno = #{jobno} 
+    </update>
+	
+	<update id="incrementSupno">
+        UPDATE jobposttb 
+        SET supno = supno + 1
+        WHERE cuserid = #{cuserid} and csrno = #{csrno} and jobno = #{jobno} 
+    </update>
+		
+	<select id="getSimilarTitles" resultType="com.boot.dto.JobposttbDTO">
+       SELECT jobtitle, cuserid, csrno, jobno
+       FROM jobposttb
+       WHERE
+	       <foreach item="keyword" collection="keywords" open="(" separator=" OR " close=")">
+	           jobtitle LIKE CONCAT('%', #{keyword}, '%')
+	       </foreach>
+	   </select>
+   
+	<select id="mainAllList" resultType="com.boot.dto.JobposttbDTO">
+        select cuserid, csrno, jobno, cusnm, loc01, jobtitle, ddate, position, skills,
+               imgno, usetb, gubun, uuid, uploadpath, filename
+		from
+		(
+		   select a.cuserid, a.csrno, a.jobno, b.cusnm, a.loc01, a.jobtitle, a.ddate, a.position, a.skills,
+		         c.imgno, c.usetb, c.gubun, c.uuid, c.uploadpath, c.filename, a.notic
+		   from jobposttb a
+		   join cusertb b on (a.cuserid = b.cuserid)
+		    left outer join imgtb c on (c.usetb = 'coinfotb' and gubun = concat(b.cuserid, '_', '1'))
+		) as a
+		order by rand()
+    </select>
+    
+    <update id="decreaseSupno">
+        UPDATE jobposttb 
+        SET supno = supno - 1
+        WHERE cuserid = #{cuserid} and csrno = #{csrno} and jobno = #{jobno} 
+    </update>
+    
+    <delete id="deleteAll_c">
+    	delete from jobposttb
+    	where cuserid = #{cuserid}
+    </delete>
+    
+    <select id="rviewrecruitlist" resultType="com.boot.dto.JobposttbDTO">
+        select a.cuserid, a.csrno, a.jobno, a.jobtitle, a.jobsubtitle, a.ddate, a.adate, TIMESTAMPDIFF(DAY, now(), date(a.ddate)) as daycha, b.cusnm
+		from jobposttb a
+		join coinfotb b
+		on a.cuserid = b.cuserid
+		where a.cuserid = #{cuserid}
+    </select>
+    
+    <select id="getTotalCount" resultType="int">
+		select count(*)
+		from
+		(
+			select cuserid, csrno, jobno, jobtitle, jobsubtitle, ddate, adate, TIMESTAMPDIFF(DAY, now(), date(ddate)) as daycha
+		from jobposttb
+		) as a
+		where cuserid = #{cuserid}
+    </select>  
+</mapper>

@@ -1,0 +1,77 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.dao.CusertbDAO">
+    <select id="cloginYn" resultType="com.boot.dto.CusertbDTO">
+        select cpass, cusnm from cusertb where cuserid=#{cuserid}
+    </select>
+	
+	<!--  기업  아이디찾기-->
+	<select id="cidfindYn" resultType="com.boot.dto.CusertbDTO">
+        select cuserid, cmail, cusnm, bsnum from cusertb where bsnum=#{bsnum}
+    </select>  
+    
+    <!-- 기업 비밀번호 변경하기-->
+	<update id="cupdatePassword">
+		UPDATE cusertb
+	    SET cpass = #{cpass}
+	    WHERE cuserid = #{cuserid} 
+	</update>
+	
+    <insert id="cRegisterInsert">
+		insert into cusertb (cuserid, cpass, cusnm, phone, cmail, bsnum, cleader, caddr, adate)
+	        	values(#{cuserid},#{cpass},#{cusnm},#{phone},#{cmail},#{bsnum},#{cleader},#{caddr}, now())
+    </insert>
+    
+    <select id="idchk" resultType="int">
+    	select count(cuserid)
+		from cusertb
+		where cuserid = #{cuserid}
+    </select>
+    
+	<select id="CPasswordYn" parameterType="hashmap" resultType="com.boot.dto.CusertbDTO">
+		SELECT cpass FROM cusertb WHERE cuserid = #{cuserid}
+	</select>
+		
+	<select id="CInfoView" parameterType="hashmap" resultType="com.boot.dto.CusertbDTO">
+		<!-- SELECT * FROM cusertb WHERE cuserid = #{cuserid}  -->
+		SELECT a.cuserid, a.cpass, a.cusnm, a.phone, a.cmail, a.bsnum, a.cleader, a.caddr, a.adate, a.mdate, 
+			   COALESCE(b.boardcnt, 0) AS boardcnt, 
+			   COALESCE(c.jobpostcnt, 0) AS jobpostcnt, 
+			   COALESCE(d.jobaplycnt, 0) AS jobaplycnt,
+			   coalesce(e.offercnt, 0) as offercnt
+		FROM cusertb a 
+		LEFT OUTER JOIN 
+			(SELECT authorid, COUNT(*) AS boardcnt 
+			 FROM boardtb 
+			 GROUP BY authorid) b 
+		ON a.cuserid = b.authorid
+		LEFT OUTER JOIN 
+			(SELECT cuserid, COUNT(*) AS jobpostcnt 
+			 FROM jobposttb 
+			 GROUP BY cuserid) c 
+		ON a.cuserid = c.cuserid
+		LEFT OUTER JOIN 
+			(SELECT cuserid, COUNT(*) AS jobaplycnt 
+			 FROM jobaplytb 
+			 GROUP BY cuserid) d 
+		ON a.cuserid = d.cuserid
+		left outer join (
+			select cuserid, count(*) as offercnt
+			from offertb
+			group by cuserid
+		) e on (a.cuserid = e.cuserid)
+		where a.cuserid = #{cuserid}
+	</select>
+	
+	<update id="CModify" parameterType="hashmap">
+		UPDATE cusertb SET cpass = #{cpass}, caddr = #{caddr}, phone = #{phone}, cleader = #{cleader}, cmail = #{cmail}, mdate = now()
+		WHERE cuserid = #{cuserid}
+	</update>
+	
+	<delete id="CDelete">
+    	delete from cusertb 
+    	where cuserid = #{cuserid}
+    </delete>
+</mapper>

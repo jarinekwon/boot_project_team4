@@ -1,0 +1,69 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.dao.ImgtbDAO">
+    <select id="getFileselect" resultType="com.boot.dto.ImgtbDTO">
+    	select imgno, usetb, gubun, uuid, uploadpath, filename
+    	from imgtb
+    	where imgno = #{imgno} and usetb = #{usetb} and gubun = #{gubun}
+    </select>
+    
+    <select id="getFile_coinfo_select" resultType="com.boot.dto.ImgtbDTO">
+    	select imgno, usetb, gubun, uuid, uploadpath, filename
+    	from imgtb
+    	where usetb = #{usetb} and gubun = #{gubun}
+    </select>
+    
+    <insert id="imgupload">
+    	<selectKey keyProperty="imgno" resultType="int" order="BEFORE">
+    		select ifnull(max(imgno), 0) + 1 as imgno
+			from imgtb
+		</selectKey>
+        insert into imgtb (imgno, usetb, gubun, uuid, uploadpath, filename, adate)
+			values(#{imgno} ,#{usetb}, #{gubun}, #{uuid}, #{uploadpath}, #{filename}, now())
+    </insert>
+    
+    <insert id="imgupload_resume">
+    	<selectKey keyProperty="imgno" resultType="int" order="BEFORE">
+    		select ifnull(max(imgno), 0) + 1 as imgno
+			from imgtb
+		</selectKey>
+        insert into imgtb (imgno, usetb, gubun, uuid, uploadpath, filename, adate)
+			values(#{imgno} ,#{usetb}, #{gubun}, #{uuid}, #{uploadpath}, #{filename}, now())
+    </insert>
+    
+    <select id="imgdata" resultType="com.boot.dto.ImgtbDTO">
+    	select imgno, usetb, gubun, uuid, uploadpath, filename
+    	from imgtb
+    	where usetb = #{usetb} and gubun = #{gubun}
+    </select>
+    
+    <delete id="deleteImgdata">
+    	delete from imgtb
+    	where imgno = #{imgno} and usetb = #{usetb} and gubun = #{gubun}
+    </delete>
+    
+    <delete id="deleteImgdata_coinfo">
+    	delete from imgtb
+    	where usetb = #{usetb} and gubun = #{gubun}
+    </delete>
+    
+    <select id="imgcnt">
+    	select count(*) from imgtb
+    	where usetb = #{usetb} and gubun = #{gubun}
+    </select>
+    
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

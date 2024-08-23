@@ -1,0 +1,51 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.dao.BoardtbDAO">
+    <select id="list" resultType="com.boot.dto.BoardtbDTO">
+        select boardno, authorid, title, content, adate, boardhit from boardtb
+    </select>
+    <insert id="write">
+    	<selectKey keyProperty="boardno" order="BEFORE" resultType="int">
+    		select ifnull(max(boardno),0)+1 from boardtb
+    	</selectKey>
+		insert into boardtb(boardno, authorid, title, content, boardhit, adate) 
+				select ifnull(max(boardno),0)+1, #{authorid}, #{title}, #{content}, 0, now()
+				  from boardtb
+    </insert>
+	
+	<select id="modify_view" resultType="com.boot.dto.BoardtbDTO">
+        select boardno, authorid, title, content, adate, boardhit from boardtb where boardno=#{boardno}
+    </select>
+	
+    <select id="contentView" resultType="com.boot.dto.BoardtbDTO">
+        select boardno, authorid, title, content, adate, boardhit from boardtb where boardno=#{boardno}
+    </select>
+    
+    <update id="modify">
+		update boardtb set authorid=#{authorid}, title=#{title}, content=#{content} where boardno=#{boardno}
+    </update>
+    
+    <delete id="delete">
+		delete from boardtb where boardno=#{boardno}
+    </delete>
+    
+	<update id="upHit">
+		update boardtb set boardhit = boardhit + 1
+		where boardno = #{boardno}
+	</update>
+	
+	<select id="select_boardno" resultType="com.boot.dto.BoardtbDTO">
+		select authorid, boardno
+		from boardtb
+		where authorid = #{authorid}
+		order by boardno
+	</select>
+	
+	<delete id="delete_p_All">
+		delete from boardtb
+		where authorid = #{authorid}
+	</delete>
+	
+</mapper>

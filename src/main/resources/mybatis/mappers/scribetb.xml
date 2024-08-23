@@ -1,0 +1,72 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.dao.ScribetbDAO">
+	<sql id="searchquery">
+		<if test='type == "all" and keyword != ""'>
+        	and cusnm like concat('%', #{keyword}, '%') or caddr like concat('%', #{keyword}, '%')
+      	</if>
+		<if test='type == "nm" and keyword != ""'>
+			and cusnm like concat('%', #{keyword}, '%')
+		</if>
+		<if test='type == "lc" and keyword != ""'>
+			and caddr like concat('%', #{keyword}, '%')
+		</if>
+	</sql>
+
+    <insert id="scribe_p_insert">
+		insert into scribetb(authorid, scribeid, usetype, adate) 
+				values(#{authorid}, #{scribeid}, 'p', now())
+    </insert>
+    
+    <delete id="scribe_p_delete">
+    	delete from scribetb
+    	where authorid = #{authorid} and scribeid = #{scribeid}
+    </delete>
+    
+    <select id="scribe_p_select" resultType="com.boot.dto.ScribetbDTO">
+    	select authorid, scribeid
+    	from scribetb
+    	where authorid = #{puserid} and scribeid = #{writer} and usetype = 'p' 
+    </select>
+    
+    <select id="allselect_p" resultType="com.boot.dto.ScribetbDTO">
+    	select rn, authorid, scribeid, cusnm, caddr, adate
+		from
+		(
+			select a.authorid, a.scribeid, b.cusnm, b.caddr, a.adate,
+					row_number() over(order by adate desc) as rn
+			from scribetb a
+			inner join cusertb b on (a.scribeid = b.cuserid)
+			where a.authorid = #{authorid}
+		) as a
+		where rn between ((#{pageNum} - 1) * #{amount}) + 1 and #{pageNum} * #{amount}
+		<include refid="searchquery"></include>
+		order by rn asc
+    </select>
+    
+    <select id="allcount_p" resultType="int">
+    	select count(*)
+		from
+		(
+			select a.authorid, a.scribeid, b.cusnm, b.caddr, a.adate,
+					row_number() over(order by adate desc) as rn
+			from scribetb a
+			inner join cusertb b on (a.scribeid = b.cuserid)
+			where a.authorid = #{authorid}
+		) as a
+		where 1=1
+		<include refid="searchquery"></include>
+    </select>
+
+    <delete id="deleteAll_p">
+		delete from scribetb
+		where authorid = #{authorid}    
+    </delete>
+    
+    <delete id="deleteAll_c">
+    	delete from scribetb
+		where scribeid = #{scribeid}  
+    </delete>
+</mapper>

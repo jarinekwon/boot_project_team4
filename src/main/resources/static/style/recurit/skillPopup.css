@@ -1,0 +1,133 @@
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.popup {
+	font-family: 'GmarketSansMedium';
+    width: 80%; /* 컨테이너 폭을 넓히기 */
+    margin: 20px auto; /* 중앙 정렬 */
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid rgb(217, 217, 217);
+    position: relative; /* 절대 위치 설정을 위한 상대 위치 설정 */
+}
+
+/* 스킬 버튼 스타일 */
+.skill-button {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.skill-button:hover {
+    background-color: #f0f0f0;
+    border-color: #bbb;
+}
+
+/* 선택된 스킬 컨테이너 스타일 */
+.selected-skills {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    min-height: 40px; /* 최소 높이 설정 */
+    position: relative; /* 아이콘을 위치시키기 위한 상대 위치 설정 */
+}
+
+/* 선택된 스킬 스타일 */
+.selected-skill {
+	font-family: 'Noto Sans KR', sans-serif;
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    background-color: #e0e0e0;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+	transition: background-color 0.3s, border-color 0.3s;
+}
+
+.selected-skill:hover {
+	background-color: #f0f0f0;
+	border-color: #bbb;
+}
+
+/* 초기화 아이콘 스타일 */
+.reset-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 16px; /* 아이콘 크기 조정 */
+    color: rgb(139, 139, 139);
+    transition: color 0.3s;
+}
+
+.reset-icon:hover {
+    color: rgb(0, 0, 0);
+}
+
+/* 버튼 스타일 */
+.save-button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.save-button:hover {
+    background-color: #0056b3;
+}
+
+/* 닫기 버튼 스타일 */
+.close {
+	font-family: 'Noto Sans KR', sans-serif;
+    display: block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.close:hover {
+    background-color: #f8f8f8;
+    color: rgb(0, 0, 0);
+}
+
+/* 버튼 컨테이너 스타일 */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* 버튼 사이의 간격 */
+    margin-top: 20px;
+}

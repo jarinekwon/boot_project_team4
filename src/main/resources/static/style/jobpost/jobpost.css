@@ -1,0 +1,376 @@
+@import url("../page.css");
+@import url(../common.css);
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333; /* 텍스트 색상 추가 */
+}
+
+.container {
+    width: 1000px; /* 컨테이너의 폭을 조정 */
+    margin: 20px;
+    background-color: #ffffff;
+    padding: 20px;
+    border: 1px solid rgb(217, 217, 217);
+}
+
+.header {
+    display: flex;
+    font-weight: bold; /* 헤더 텍스트 두껍게 */
+    background-color: #f4f4f4; /* 헤더 배경색 */
+    padding: 10px;
+    margin-bottom: 10px; /* 리스트 아이템과의 간격 추가 */
+}
+
+.header-item {
+    text-align: center; /* 중앙 정렬 */
+    border-right: 1px solid #ddd;
+}
+
+/* 마지막 헤더 항목의 오른쪽 경계선 제거 */
+.header-item:last-child {
+    border-right: none;
+}
+
+.company-header {
+    width: 200px; /* 회사명 칸의 너비 */
+}
+
+.details-header {
+    width: 600px; /* 공고 제목과 세부사항 칸의 너비 */
+}
+
+.dates-header {
+    width: 200px; /* 등록일, 마감일, D-데이 칸의 너비 */
+}
+
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px; /* 패딩 조정 */
+    background-color: #fff;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    transition: box-shadow 0.3s ease;
+}
+
+.list-item:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 호버 시 그림자 추가 */
+}
+
+.list-item .company {
+    width: 20%; /* 회사명 칸의 너비 조정 */
+    text-align: left; /* 왼쪽 정렬 */
+}
+
+.list-item .separator {
+    border-left: 1px solid #ddd;
+    height: 50px; /* 세로선의 높이 조정 */
+}
+
+.list-item .details {
+    width: 60%; /* 공고 제목과 세부사항 칸의 너비 조정 */
+    text-align: left; /* 왼쪽 정렬 */
+    margin-left: 20px;
+}
+
+.list-item .job-title {
+    font-size: 1.2em; /* 공고 제목 글씨 크기 조정 */
+    font-weight: bold;
+}
+
+.list-item .sub-details {
+    font-size: 0.9em; /* 작은 글씨 크기 조정 */
+    color: rgb(140, 140, 140); /* 회색으로 변경 */
+}
+
+.list-item .dates {
+    width: 20%; /* 등록일, 마감일, D-데이 칸의 너비 조정 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.list-item .dates span {
+    display: block;
+    font-size: 0.9em; /* 텍스트 크기 조정 */
+    color: rgb(128, 128, 128); /* 텍스트 색상 조정 */
+}
+
+.button-nav {
+    display: grid;
+    grid-template-columns: 170px 170px 170px 170px;
+    justify-content: center; /* 수평 중앙 정렬 */
+    margin-top: 10px; /* 위로 더 위치하도록 마진 조정 */
+    min-width: 1050px;
+    padding-bottom: 5px; /* 버튼 아래 패딩 줄이기 */
+}
+
+.button-nav dl {
+	display: grid;
+	justify-content: center; /* 수평 중앙 정렬 */
+}
+
+.button-nav dl button {
+	align-self: center;
+}
+
+.button-nav button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px; /* 패딩 줄이기 */
+    margin: 0 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 150px; /* 버튼의 길이 설정 */
+    align-self: center;
+    transition: background-color 0.3s; /* 부드러운 전환 효과 */
+}
+
+.button-nav button:hover {
+    background-color: #45a049; /* 호버 효과 */
+}
+
+.scrollable-content {
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+    padding: 10px; /* 내부 콘텐츠와의 간격 */
+    display: none;
+    max-height: 200px;
+    background-color: #fff; /* 배경색 추가 */
+    border: 1px solid #ddd; /* 테두리 추가 */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+    border-radius: 5px; /* 테두리 둥글게 */
+}
+
+.item {
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.item:hover {
+    background-color: #f1f1f1;
+}
+
+li {
+    list-style-type: none;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.dropdown-button:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1; /* 배경 레이어를 뒤로 보냄 */
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.7); /* 투명한 흰색 설정 (70% 투명도) */
+/*     background-color: #fff; */
+/*     background-image: linear-gradient(315deg, #4dccc6 0%, #96e4df 74%); */
+    transition: all 0.15s ease; /* 배경 전환 효과 */
+}
+
+.dropdown-button {
+    position: relative; /* 부모 요소 기준으로 상대 위치 지정 */
+    background-color: #4CAF50;
+    background-image: linear-gradient(315deg, #4CAF50 0%, #4CAF50 74%);
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: color 0.3s ease, background-color 0.3s ease; /* 글자색 전환 효과 추가 */
+    z-index: 1;
+    box-shadow: 
+        -7px -7px 20px 0px #fff9,
+        -4px -4px 5px 0px #fff9,
+        7px 7px 20px 0px #0002,
+        4px 4px 5px 0px #0001;
+}
+
+.dropdown-button:hover {
+    color: #fff; /* 호버 시 글자색 */
+}
+
+.dropdown-button:hover:after {
+    top: 0;
+    height: 100%; /* 배경이 버튼 전체를 덮도록 확대 */
+}
+
+.dropdown-button:active {
+    top: 2px; /* 클릭 시 버튼이 눌리는 효과 */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 140px;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px; /* 테두리 둥글게 */
+}
+
+.dropdown-content .item {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content .item:hover {
+    background-color: #f1f1f1;
+}
+
+.close-button {
+    display: none;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px; /* 테두리 둥글게 */
+    transition: background-color 0.3s; /* 부드러운 전환 효과 */
+}
+
+.close-button:hover {
+    background-color: #d32f2f;
+}
+
+.search-box {
+    display: none;
+    width: 100%;
+    padding: 10px 0; /* 패딩 줄이기 */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    min-width: 1000px;
+    margin-top: 5px; /* button-nav와 간격 추가 */
+}
+
+.box-show {
+    display: grid;
+    grid-template-columns: 700px 350px;
+    justify-content: center;
+    min-width: 1050px;
+    align-items: center;
+}
+
+.search-box .sb-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s; /* 부드러운 전환 효과 */
+    margin-left: 10px; /* 버튼 사이 여백 추가 */
+}
+
+.search-box .sb-btn:hover {
+    background-color: #45a049; /* 호버 효과 */
+}
+
+.search-box .search-list {
+    width: 100%;
+    padding: 10px;
+    min-width: 700px;
+}
+
+.selected-item {
+    background-color: transparent; /* 배경색 제거 */
+    color: #333; /* 텍스트 색상 */
+    font-size: 0.9em;
+    margin: 2px;
+    border: 1px solid #ddd; /* 테두리 추가 */
+    padding: 5px 10px; /* 패딩 추가 */
+    border-radius: 5px; /* 테두리 둥글게 */
+    cursor: pointer;
+    display: inline-flex; /* 아이템을 인라인 플렉스로 변경 */
+    align-items: center; /* 아이템 내 텍스트와 아이콘을 가운데 정렬 */
+    transition: background-color 0.3s; /* 부드러운 전환 효과 */
+}
+
+.button-area {
+	display: flex;
+	justify-content: flex-end;
+	padding: 15px;
+}
+
+.selected-item:hover {
+    background-color: #f1f1f1; /* 호버 시 배경색 */
+}
+
+.selected-item .ico {
+    margin-left: 6px;
+    text-indent: -9999px;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+    top: 0;
+    width: 10px;
+    height: 10px;
+    background: url(../../spr.png) no-repeat -86px 0;
+    cursor: pointer;
+}
+
+.show {
+    display: block;
+}
+
+.job-row {
+    cursor: pointer;
+}
+
+.job-row:hover {
+    background-color: rgb(238, 251, 255); /* 원하는 색상으로 변경 */
+}
+
+.table-container {
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+    margin-top: 20px; /* 위쪽 여백 */
+}
+
+.job-post-table {
+    width: 1000px; /* 테이블의 폭 설정 */
+    border-collapse: collapse; /* 테이블 셀 사이의 경계 제거 */
+}
+
+.job-post-table th, .job-post-table td {
+    border: 1px solid #ddd; /* 경계선 색상 설정 */
+    padding: 8px; /* 셀 내 여백 설정 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.job-post-table th {
+    background-color: #f4f4f4; /* 헤더 배경색 설정 */
+    font-weight: bold; /* 헤더 텍스트 두껍게 */
+}
+
+/* 링크의 기본 스타일 */
+.job-title a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: black; /* 기본 텍스트 색상 */
+}
+
+/* 마우스 커서를 올렸을 때 링크 색상 변경 */
+.job-title a:hover {
+    color: #007bff; /* 마우스 오버 시 글씨 색상 파란색으로 변경 */
+}
+
+.company a {
+    color: black; /* 기본 텍스트 색상 */
+    text-decoration: none; /* 밑줄 제거 */
+}
+
+.company a:hover {
+    color: #007bff; /* 마우스 오버 시 글씨 색상 파란색으로 변경 */
+}

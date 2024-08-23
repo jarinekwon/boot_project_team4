@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<mappers>
+		<mapper resource="mybatis/mappers/boardtb.xml"/>
+		<mapper resource="mybatis/mappers/careertb.xml"/>
+		<mapper resource="mybatis/mappers/calltb.xml"/>
+		<mapper resource="mybatis/mappers/commenttb.xml"/>
+		<mapper resource="mybatis/mappers/cusertb.xml"/>
+		<mapper resource="mybatis/mappers/edugbtb.xml"/>
+		<mapper resource="mybatis/mappers/jobposttb.xml"/>
+		<mapper resource="mybatis/mappers/jobaplytb.xml"/>
+		<mapper resource="mybatis/mappers/jobsorttb.xml"/>
+		<mapper resource="mybatis/mappers/page.xml"/>
+		<mapper resource="mybatis/mappers/pusertb.xml"/>
+		<mapper resource="mybatis/mappers/register.xml"/>
+		<mapper resource="mybatis/mappers/rcareertb.xml"/>
+		<mapper resource="mybatis/mappers/wrktygbtb.xml"/>
+		<mapper resource="mybatis/mappers/imgtb.xml"/>
+		<mapper resource="mybatis/mappers/resumetb.xml"/>
+		<mapper resource="mybatis/mappers/showskilltb.xml"/>
+		<mapper resource="mybatis/mappers/skilltb.xml"/>
+		<mapper resource="mybatis/mappers/scribetb.xml"/>
+		<mapper resource="mybatis/mappers/scraptb.xml"/>
+		<mapper resource="mybatis/mappers/coinfotb.xml"/>
+		<mapper resource="mybatis/mappers/sectortb.xml"/>
+		<mapper resource="mybatis/mappers/musertb.xml"/>
+		<mapper resource="mybatis/mappers/rviewtb.xml"/>
+		<mapper resource="mybatis/mappers/offertb.xml"/>
+	</mappers>
+</configuration>

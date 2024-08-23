@@ -1,0 +1,121 @@
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'GmarketSansMedium', Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 600px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #45a049;
+    margin-bottom: 30px;
+}
+
+.resume-item {
+    margin-bottom: 15px;
+    padding: 15px;
+    text-align: left;
+    border: 1px solid #e9ecef;
+    border-radius: 5px;
+    position: relative;
+}
+
+.resume-item label {
+    display: block;
+    cursor: pointer;
+    position: relative;
+    padding-left: 50px; /* 체크박스 옆 여백 설정 */
+    line-height: 1.5;
+    color: rgb(0, 0, 0); /* 링크 색상 설정 */
+}
+
+.resume-item input[type="checkbox"] {
+    display: none; /* 체크박스는 숨깁니다. */
+}
+
+.resume-item label:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgb(192, 192, 192); /* 체크박스 외곽선 색상 */
+    border-radius: 3px;
+    background-color: #ffffff;
+}
+
+.resume-item input[type="checkbox"]:checked + label:before {
+    background-color: #007BFF; /* 체크된 경우 배경색 변경 */
+    border-color: #007BFF; /* 체크된 경우 외곽선 색상 변경 */
+}
+
+.resume-item label:after {
+    content: '\2714'; /* 체크 표시 (유니코드) */
+    font-family: 'Arial Unicode MS', sans-serif;
+    font-size: 16px;
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #ffffff;
+    display: none; /* 기본적으로 숨깁니다. */
+}
+
+.resume-item input[type="checkbox"]:checked + label:after {
+    display: block; /* 체크된 경우에만 보이도록 설정합니다. */
+}
+
+.resume-item a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 부모 요소의 색상 상속 */
+}
+
+.resume-item a:hover {
+    color: rgb(0, 128, 255); /* 호버 시 색상 변경 */
+}
+
+.apply-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.apply-button button {
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 0 10px;
+}
+
+.apply-button .apply {
+    background-color: #45a049;
+}
+
+.apply-button .apply:hover {
+    background-color: darkgreen;
+}

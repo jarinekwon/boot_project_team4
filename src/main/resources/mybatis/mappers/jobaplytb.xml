@@ -1,0 +1,154 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- id = "dao 메소드이름?"  -->
+<mapper namespace="com.boot.dao.JobaplytbDAO">
+	<select id="jobaplylist_p" resultType="com.boot.dto.JobaplytbDTO">
+		select cuserid, csrno, jobno, puserid, jobtitle, jobsubtitle, prchk, adate, rn
+		from
+		(
+			select cuserid, csrno, jobno, puserid, jobtitle, jobsubtitle, prchk, adate, rn
+	        from
+			(	
+				select a.cuserid, a.csrno, a.jobno, a.puserid, b.jobtitle, b.jobsubtitle, a.prchk, a.adate,
+					   row_number() over(order by a.adate desc) as rn
+			 	from jobaplytb a 
+				inner join jobposttb b on (a.cuserid = b.cuserid and a.csrno = b.csrno and a.jobno = b.jobno)
+				inner join resumetb c on (a.puserid = c.puserid and a.prono = c.prono)
+			) as a
+			where puserid = #{puserid} 
+		) as a
+		where rn between ((#{pageNum} - 1) * #{amount}) + 1 and #{pageNum} * #{amount};
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+		select count(*)
+        from
+			(	
+				select a.cuserid, a.csrno, a.jobno, a.puserid, b.jobtitle, b.jobsubtitle
+			 	from jobaplytb a 
+				inner join jobposttb b on (a.cuserid = b.cuserid and a.csrno = b.csrno and a.jobno = b.jobno)
+				inner join resumetb c on (a.puserid = c.puserid and a.prono = c.prono)
+			) as a
+		where puserid = #{puserid} 
+	</select>
+	
+	<select id="jobaplylist" resultType="com.boot.dto.JobaplytbDTO">
+		select puserid, cuserid, csrno, jobno, prono, protitle, prstitle, prchk,
+			   imgno, uuid, uploadpath, filename
+		from
+		(
+			select a.puserid, a.cuserid, a.csrno, a.jobno, a.prono, b.protitle, b.prstitle, a.prchk,
+				   c.imgno, c.uuid, c.uploadpath, c.filename
+		    from jobaplytb a
+		    inner join resumetb b on (a.puserid = b.puserid and a.prono = b.prono)
+		    left outer join imgtb c on (c.usetb = 'resumetb' and c.gubun = concat(b.puserid, '_', b.prono))
+		) as a
+		where cuserid = #{cuserid} and csrno = #{csrno} and jobno = #{jobno}
+	</select>
+	
+	<select id="jobaplylist_count" resultType="int">
+		select count(*)
+		from
+		(
+			select a.puserid, a.cuserid, a.csrno, a.jobno, a.prono, b.protitle, b.prstitle, prchk,
+				   c.imgno, c.uuid, c.uploadpath, c.filename
+		    from jobaplytb a
+		    inner join resumetb b on (a.puserid = b.puserid and a.prono = b.prono)
+		    left outer join imgtb c on (c.usetb = 'resumetb' and c.gubun = concat(b.puserid, '_', b.prono))
+		) as a
+		where cuserid = #{cuserid} and jobno = ${jobno}
+	</select>
+	
+	<update id="jobaply_prcnt">
+		update jobaplytb set prchk = 1
+		where puserid = #{puserid} and cuserid = #{cuserid} and csrno = #{csrno} and jobno = #{jobno} and prono = #{prono}
+	</update>
+	
+	<insert id="insertjobapply">
+		insert into jobaplytb (puserid, cuserid, csrno, jobno, prono, adate)
+					values(#{puserid}, #{cuserid}, #{csrno}, #{jobno}, #{prono}, now())
+	</insert>
+	
+	<select id="jobaplycnt" resultType="int">
+		select count(*) from jobaplytb
+		where puserid = #{puserid} and cuserid = #{cuserid} and csrno = #{csrno} and jobno = #{jobno}
+	</select>
+	
+	<delete id="jobaply_delete">
+		delete from jobaplytb
+		where cuserid = #{cuserid} and csrno = #{csrno} and jobno = #{jobno}
+	</delete>
+	
+	<!-- 성별 통계 -->
+    <select id="getGenderStatistics" resultType="com.boot.dto.JobaplytbDTO">
+        SELECT gender, COUNT(gender) AS gender_cnt
+        FROM
+        (
+           SELECT a.puserid, a.cuserid, a.csrno, a.jobno, a.prono, b.gender
+           FROM jobaplytb AS a
+           INNER JOIN resumetb AS b 
+           ON a.puserid = b.puserid AND a.prono = b.prono
+           WHERE a.cuserid = #{cuserid} 
+             AND a.csrno = #{csrno} 
+             AND a.jobno = #{jobno}
+        ) AS a
+        GROUP BY gender
+        ORDER BY gender
+    </select>
+	
+	    <!-- 연령 통계 -->
+	<select id="getAgeStatistics" resultType="com.boot.dto.JobaplytbDTO">
+	    select age, count(age) as age_cnt
+		from
+		(
+			select a.puserid, a.cuserid, a.csrno, a.jobno, a.prono,
+			       case when round((TIMESTAMPDIFF(YEAR, date(birdy), now()) / 10)) * 10 >= 50 then 50
+			       else round((TIMESTAMPDIFF(YEAR, date(birdy), now()) / 10)) * 10 end as age
+			from jobaplytb as a
+			inner join resumetb as b on (a.puserid = b.puserid and a.prono = b.prono)
+			where a.cuserid = #{cuserid} and a.csrno = #{csrno} and a.jobno = #{jobno}
+		) as a
+		group by age
+		order by age
+	</select>
+	
+	<!-- 학력 통계 -->
+	<select id="getEducationStatistics" resultType="com.boot.dto.JobaplytbDTO">
+	    select classgb, count(classgb) as classgb_cnt
+		from
+		(
+			select a.puserid, a.cuserid, a.csrno, a.jobno, a.prono, b.classgb
+			from jobaplytb a
+			inner join resumetb as b on (a.puserid = b.puserid and a.prono = b.prono)
+			where a.cuserid = #{cuserid} and a.csrno = #{csrno} and a.jobno = #{jobno}
+		) as a
+		group by classgb
+		order by classgb
+	</select>
+	
+	<!-- 일반 회원 계정 기준 전체 조회 -->
+	<select id="jobaply_p_selectAll" resultType="com.boot.dto.JobaplytbDTO">
+		select puserid, cuserid, csrno, jobno, prono
+		from jobaplytb
+		where puserid = #{puserid}
+	</select>
+	<!-- 탈퇴하려는 일반 회원 계정 기준 전체 지원 이력 삭제 -->
+	<delete id="jobaply_p_all_delete">
+		delete from jobaplytb
+		where puserid = #{puserid}
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

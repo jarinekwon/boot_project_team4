@@ -1,0 +1,214 @@
+@import url("../page.css");
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+/*    font-family: Arial, Helvetica, sans-serif;*/
+    background-color: rgb(250, 250, 250);
+    margin: 0;
+    padding: 0;
+}
+
+h2{
+	font-size: 35px;
+}
+
+/*요소 전체*/
+.container {
+    /* 기존의 스타일 유지하고 container를 중앙으로 정렬 */
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+	margin: 20px;
+}
+
+section{
+	height: 60px;
+	padding: none;
+	display: flex;
+	justify-content: space-between;
+}
+
+section button{
+	align-items: right;
+}
+
+table{
+	border-collapse: collapse; /* 셀 사이의 경계를 합침 */
+}
+
+table td{
+    border: 1px solid #ccc; /* 셀의 테두리 설정 */
+    padding: 8px; /* 셀 내부 여백 설정 */
+    width: 150px; /* 각 셀의 너비 설정 */
+    height: 30px; /* 각 셀의 높이 설정 */
+	text-align: center;
+	border-bottom: 1px solid #ccc;
+/*	border: none;*/
+}
+
+.boardno_td{
+	width: 100px;
+}
+.authorid_td{
+	width: 200px;
+}
+.title_td{
+	width: 300px;
+}
+
+/*제목(href 태그)*/
+.title_td a{
+	color: black;
+/*	text-decoration: none;*/
+}
+.adate_td{
+	width: 200px;
+}
+.boardhit{
+	width: 100px;
+}
+.th_last{
+	padding: 10px;
+}
+
+/* 글 작성하기 버튼 */
+#boardsearchwrite {
+	font-family: 'GmarketSansMedium', Arial, sans-serif;
+    width: 150px;
+    height: 35px;
+	background-color: #45a049;
+    margin-left: auto;  /* 왼쪽 여백을 auto로 설정하여 오른쪽 정렬로 조정 */
+    margin-bottom: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    text-decoration: none;
+	
+/*	버튼 클릭시 눌리는 효과*/
+/*	box-shadow: 3px 3px 3px black;*/
+/*	transition-duration: 0.3s;*/
+}
+
+/*#boardsearchwrite:active{*/
+/*	margin-left: 5px;*/
+/*	margin-top: 5px;*/
+/*	box-shadow: none;*/
+/*}*/
+
+.boardsearchwrite{
+	text-align: right;
+	width: 1000px;
+}
+
+/*.div_page {*/
+/*    margin-top: 20px;  페이지 버튼과 테이블 사이의 간격을 조정 */
+/*    text-align: center;  페이지 버튼 내의 요소들을 가운데 정렬 */
+/*}*/
+
+/*.div_page ul {*/
+/*    padding: 0;*/
+/*}*/
+
+/*.div_page ul li {*/
+/*    display: inline-block;   인라인 요소로 나열 */
+/*    margin: 0 5px;   간격 설정 */
+/*    text-align: center;   텍스트 가운데 정렬 */
+/*}*/
+
+/*.div_page ul li a {*/
+/*    text-decoration: none;  링크 밑줄 제거 */
+/*    color: inherit;  부모 요소의 텍스트 색상 상속 */
+/*}*/
+/*
+.div_page {
+	margin: 30px 0 20px 0;
+    height: 10%;
+}
+
+.div_page ul {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    padding: 0;
+}
+
+.div_page ul li {
+    margin: 0 5px;
+}
+
+.div_page ul li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s; /부드러운 전환 효과
+}
+
+.div_page ul li a:hover {
+    background-color: #4CAF50;
+    border: #4CAF50;
+    color: white;
+}
+
+.div_page ul li.active > .page-link {
+	background-color: #4CAF50;
+	color: white;
+}
+*/
+.search{
+	flex-wrap: nowrap;
+}
+
+/*검색 옵션*/
+.searchoption {
+	font-family: 'GmarketSansMedium', Arial, sans-serif;
+    width: 130px;
+    height: 35px;
+    background-color: #c4d1b9;
+    padding: 5px 30px 5px 10px;
+	border: none;
+    border-radius: 10px;;
+    outline: 0 none;
+}
+
+/*검색창*/
+#boardsearchbar {
+	font-family: 'GmarketSansMedium', Arial, sans-serif;
+    width: 500px;
+    height: 35px;
+    background-color: #c4d1b9;
+	border: none;
+   	border-radius: 10px;;
+    outline: none;
+}
+
+/*검색버튼*/
+#boardsearchbutton {
+	font-family: 'GmarketSansMedium', Arial, sans-serif;
+	width: 100px;
+    height: 35px;
+	background-color: #45a049;
+    border-radius: 10px;;
+    padding: 5px;
+    color: white;
+    border: none;
+}
+
+#boardsearchbutton, .searchoption{
+	cursor: pointer; /* 마우스 커서를 손가락 모양으로 변경 */
+}
+
+tr:hover {
+    background-color: rgb(192, 192, 192);
+}
+	
+th {
+    background-color: rgb(250, 250, 250);; /* 헤더의 배경색 고정 */
+}

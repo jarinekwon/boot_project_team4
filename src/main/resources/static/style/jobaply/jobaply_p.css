@@ -1,0 +1,159 @@
+/* 기본 스타일 설정 */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid gainsboro;
+}
+
+header h1 {
+    color: green;
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li {
+    margin: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+nav ul li.user {
+    font-weight: bold;
+    color: green;
+}
+
+/* 이력서 관리 섹션 스타일 */
+.resume-management {
+    margin-top: 20px;
+}
+
+.resume-management h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 24px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+#subtitle {
+    color: gray;
+    font-size: 15px;
+}
+
+/* 이력서 항목 스타일 */
+.resume-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: rgb(249, 255, 247);
+    border-radius: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    transition: box-shadow 0.3s ease;
+}
+
+.resume-item:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.resume-details {
+    flex-grow: 1;
+}
+
+.resume-details p {
+    margin: 0;
+}
+
+.resume-details p#title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+.resume-details p#title:hover {
+    color: #007bff;
+}
+
+.resume-details p#subtitle {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #666;
+}
+
+/* 버튼 스타일 */
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+button.edit, button.delete {
+    background-color: #45a049;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button.edit:hover {
+    background-color: darkgreen;
+}
+
+button.delete {
+    background-color: rgb(254, 84, 88);
+}
+
+button.delete:hover {
+    background-color: rgb(222, 1, 6);
+}
+
+/* 새로운 모집 버튼 스타일 */
+.new-recruit-button {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.new-recruit-button button {
+    background-color: #45a049;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    cursor: pointer;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.new-recruit-button button:hover {
+    background-color: darkgreen;
+}

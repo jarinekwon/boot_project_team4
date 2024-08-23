@@ -1,0 +1,94 @@
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1000px;
+    margin: 0 auto;
+    margin-top: 50px;
+    position: relative;
+}
+
+h2{
+	margin-left: 40px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 800px;
+    margin-bottom: 20px; /* 목록보기 버튼과 테이블 사이의 공간 */
+}
+
+.button-container-bottom {
+    display: flex;
+    justify-content: center;
+	margin-left: 50px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 800px;
+    margin-bottom: 20px;
+    table-layout: fixed; /* 테이블 레이아웃을 고정으로 설정 */
+}
+
+.table_td {
+	font-family: 'GmarketSansMedium', Arial, sans-serif;
+    width: 50px;
+    padding: 10px 10px;
+    text-align: right;
+}
+
+.table_td + td {
+/*	border: 1px solid #ccc;*/
+    width: calc(100% - 200px); /* 나머지 너비를 할당 */
+/*	padding-left: 20px;  좌측 패딩 추가 */
+}
+
+input {
+    height: 50px;
+    width: 100%; /* 부모 요소의 너비에 맞추기 */
+    border: none;
+    padding: 5px;
+	box-sizing: border-box;
+}
+
+textarea {
+    width: 100%;
+    height: 200px;
+    border: none;
+    padding: 5px;
+    resize: none; /* 크기 조절 비활성화 */
+	box-sizing: border-box;
+}
+
+.listbutton, .submitbutton {
+	font-family: 'GmarketSansMedium', Arial, sans-serif;
+    width: 100px;
+    height: 35px;
+	background-color: #45a049;
+    border-radius: 10px;
+/*    padding: 10px 5px 5px 5px;*/
+	padding-top: 5px;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+.listbutton a {
+    color: white;
+    text-decoration: none;
+}

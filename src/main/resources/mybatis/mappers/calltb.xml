@@ -1,0 +1,111 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.dao.CalltbDAO">
+	<sql id="searchquery">
+		<if test='type == "all" and keyword != ""'>
+        	and calltitle like concat('%', #{keyword}, '%') or callcontent like concat('%', #{keyword}, '%')
+      	</if>
+		<if test='type == "T" and keyword != ""'>
+			and calltitle like concat('%', #{keyword}, '%')
+		</if>
+		<if test='type == "C" and keyword != ""'>
+			and callcontent like concat('%', #{keyword}, '%')
+		</if>
+	</sql>
+    <select id="calllist" resultType="com.boot.dto.CalltbDTO">
+    	select callno, authorid, calltitle, callcontent, callyn, adate, rn
+		from
+		(
+			select callno, authorid, calltitle, callcontent, callyn, adate,
+				   row_number() over(order by callno desc) as rn
+			from calltb
+			where authorid = #{authorid}
+		) as a
+    	where rn between ((#{pageNum} - 1) * #{amount}) + 1 and #{pageNum} * #{amount}
+    	<include refid="searchquery"></include>
+    </select>
+    
+	<select id="getTotalCount" resultType="int">
+		select count(*)
+		from
+		(
+			select callno, authorid, calltitle, callcontent, callyn, adate,
+				   row_number() over(order by callno desc) as rn
+			from calltb
+			where authorid = #{authorid}
+		) as a
+		where 1=1
+    	<include refid="searchquery"></include>
+    </select>
+    
+    <insert id="callwrite">
+	    <selectKey keyProperty="callno" resultType="int" order="BEFORE">
+	   		select ifnull(max(callno), 0) + 1 as callno
+			from calltb
+			where authorid = #{authorid}
+		</selectKey>
+		insert into calltb (callno, authorid, calltitle, callcontent, adate)
+	        	values(#{callno}, #{authorid}, #{calltitle}, #{callcontent}, now())
+    </insert>
+    
+    <select id="callselect" resultType="com.boot.dto.CalltbDTO">
+		select callno, authorid, calltitle, callcontent, callyn, callreply, adate, mdate
+		from calltb
+		where callno = #{callno} and authorid = #{authorid}
+    </select>
+    
+    <select id="CallAllList" resultType="com.boot.dto.CalltbDTO">
+    	select rn, callno, authorid, calltitle, callcontent, callyn, callreply, adate
+		from
+		(
+			select callno, authorid, calltitle, callcontent, callyn, callreply, adate,
+				   row_number() over(order by adate asc) as rn
+			from calltb
+			where callyn = #{callyn}
+		) as a
+		where rn between ((#{pageNum} - 1) * #{amount}) + 1 and #{pageNum} * #{amount}
+    	<include refid="searchquery"></include>
+		order by rn asc
+    </select>
+    
+    <select id="getTotalCountAll" resultType="int">
+		select count(*)
+		from
+		(
+			select callno, authorid, calltitle, callcontent, callyn, callreply, adate,
+				   row_number() over(order by adate asc) as rn
+			from calltb
+			where callyn = #{callyn}
+		) as a
+		where 1=1
+    	<include refid="searchquery"></include>
+    </select>
+    
+    <select id="Calldetail" resultType="com.boot.dto.CalltbDTO">
+    	select callno, authorid, calltitle, callcontent, callyn, callreply, adate, mdate
+		from calltb
+		where callno = #{callno} and authorid = #{authorid};
+    </select>
+    
+    <update id="callUpdate">
+    	update calltb set callyn = 'y', callreply = #{callreply}, mdate = now()
+    	where callno = #{callno} and authorid = #{authorid}; 
+    </update>
+    
+    <update id="call_p_update">
+    	update calltb set callcontent = #{callcontent}, mdate = now()
+    	where callno = #{callno} and authorid = #{authorid};
+    </update>
+    
+    <delete id="call_p_delete">
+    	delete from calltb
+    	where callno = #{callno} and authorid = #{authorid};
+    </delete>
+    
+    <delete id="call_p_deleteAll">
+    	delete from calltb
+    	where authorid = #{authorid};
+    </delete>
+</mapper>

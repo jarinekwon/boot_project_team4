@@ -1,0 +1,92 @@
+.comment-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.comment-list h4 {
+    margin-top: 20px;
+    border-bottom: 2px solid #ddd;
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
+    padding-bottom: 15px;
+}
+
+.comments {
+    margin-top: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between; /* 좌우로 요소 배치 */
+    align-items: center; /* 수직 정렬 */
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.comment-header form {
+    display: flex;
+}
+
+.comment-header button {
+	font-family: 'GmarketSansMedium';
+	width: 50px;
+	border: none;
+	background-color: rgb(250,250,250);
+	cursor: pointer;
+}
+
+.comment-header button:hover {
+	color: rgb(143, 215, 23);
+}
+
+.comment-content {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.comment-content p {
+    width: 750px;
+    box-sizing: border-box;
+}
+
+.comments .comment-id,
+.comments .comment-time {
+    text-align: left;
+}
+
+.comments .comment-header .p3 {
+    background-color: white;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.comments .comment-header .p3 p {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+.comments .p3 input {
+    font-family: 'GmarketSansMedium';
+    border: none;
+	width: 750px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+	font-size: 16px;
+}

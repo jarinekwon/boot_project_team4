@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.dao.RcareerDAO">
+    <insert id="createRcareer">
+    	<selectKey keyProperty="corpno" resultType="int" order="BEFORE">
+			select ifnull(max(corpno), 0) + 1 as corpno
+			from pcareertb
+			where puserid = #{puserid} and prono = #{prono}
+		</selectKey>
+        INSERT INTO pcareertb (puserid, prono, corpno, corpnm, sdate, edate, wrkty, position, task, adate, mdate)
+        VALUES (#{puserid}, #{prono}, #{corpno}, #{corpnm}, #{sdate}, #{edate}, #{wrkty}, #{position}, #{task}, now(), #{mdate})
+    </insert>
+	
+	<!-- 경력 정보 조회 -->
+    <select id="selectRcareer" resultType="com.boot.dto.RcareerDTO">
+        SELECT * FROM pcareertb 
+        WHERE puserid = #{puserid} AND prono = #{prono}
+    </select>
+	
+    <select id="getRcareer">
+        SELECT * FROM pcareertb WHERE puserid = #{puserid}
+    </select>
+
+    <update id="updateRcareer">
+        UPDATE pcareertb
+        SET prono = #{prono}, corpno = #{corpno}, corpnm = #{corpnm}, sdate = #{sdate}, edate = #{edate}, wrkty = #{wrkty}, position = #{position}, task = #{task}, adate = #{adate}, mdate = #{mdate}
+        WHERE puserid = #{puserid}
+    </update>
+
+    <delete id="delete_career">
+        DELETE FROM pcareertb
+        WHERE puserid = #{puserid} and prono = #{prono}
+    </delete>
+    
+    <delete id="delete_career_All">
+        DELETE FROM pcareertb
+        WHERE puserid = #{puserid}
+    </delete>
+</mapper>

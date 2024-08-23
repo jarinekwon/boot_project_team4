@@ -1,0 +1,163 @@
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 800px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid rgb(217, 217, 217);
+}
+
+.info {
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+.infoTbBx .tbRow {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	box-sizing: border-box;
+	color: #000;
+}
+
+.tbCell {
+	flex: 0 0 97.4%;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.tbCell2 {
+	flex: 1 1 33.33%;
+    width: 50%;
+    padding: 10px;
+	margin-bottom: 10px;
+}
+
+.elWrap {
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.schInpType {
+    position: relative;
+}
+
+.point {
+    color: #ff3333;
+}
+
+.skip {
+    display: none;
+}
+
+.ph {
+    font-size: 16px;
+    color: #afb0b2;
+    position: absolute;
+    top: 20px;
+    left: 17px;
+    transition: all 0.2s ease-in-out;
+}
+
+/* 필드가 비어있고 placeholder가 비어있을 때 라벨의 크기 */
+.inpDefault:placeholder-shown:not(:focus) + .ph {
+    font-size: 16px; /* 원래 크기 */
+    color: #afb0b2;
+    top: 20px;
+}
+
+/* 필드에 텍스트가 입력되거나 필드가 포커스 상태일 때 라벨의 크기 */
+.inpDefault:not(:placeholder-shown) + .ph,
+.inpDefault:focus + .ph {
+    font-size: 11px;
+    color: #afb0b2;
+    top: 10px;
+}
+
+/* placeholder가 있는 경우 라벨의 크기 */
+.inpDefault.has-placeholder:placeholder-shown:not(:focus) + .ph {
+    font-size: 11px; /* placeholder가 있을 때 크기 */
+    color: #afb0b2;
+    top: 10px;
+}
+
+.inpDefault {
+    width: 100%;
+    height: 60px;
+    line-height: 40px;
+    padding: 20px 17px 0 17px;
+    border: none;
+    background-color: #fff;
+    font-size: 16px;
+    color: #333;
+}
+
+.button-container {
+	display: flex;
+	justify-content: center;
+	margin-top: 20px auto;
+	margin-bottom: 50px;
+}
+
+.submit-button,
+.edit-all-button,
+.preview-button {
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	padding: 15px;
+	cursor: pointer;
+	font-size: 1.2em;
+	border-radius: 5px;
+	margin: 0 10px;
+}
+
+.submit-button:hover {
+	background-color: #0056b3;
+}
+
+.edit-all-button {
+	background-color: #007bff;
+}
+
+.edit-all-button:hover {
+	background-color: #0056b3;
+}
+
+.preview-button {
+	background-color: #007bff;
+}
+
+.preview-button:hover {
+	background-color: #0056b3;
+}
+
+.postal-link-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.postal-link-container a {
+    color: #007bff;
+    text-decoration: underline;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.postal-link-container a:hover {
+    color: #0056b3;
+}

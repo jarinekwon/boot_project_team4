@@ -1,0 +1,37 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.dao.CommenttbDAO">
+    <insert id="save">
+    	<selectKey keyProperty="replyno" resultType="int" order="BEFORE">
+    		select ifnull(max(replyno), 0) + 1 as replyno
+			from commenttb
+    	</selectKey>
+			insert into commenttb(replyno, replyid ,content ,boardno, adate) 
+			   	values(#{replyno}, #{replyid}, #{content}, #{boardno}, now() )
+    </insert>
+    
+    <select id="findAll" resultType="com.boot.dto.CommenttbDTO">
+        select replyno, replyid, content, boardno, adate
+        from commenttb
+		where boardno = #{boardno}
+		order by replyno desc
+    </select>
+    
+    <delete id="delete_p_All">
+    	delete from commenttb
+    	where boardno = #{boardno}
+    </delete>
+    
+    <update id="modify">
+        update commenttb
+        set content = #{content}
+        where replyno = #{replyno}
+    </update>
+    
+    <delete id="delete">
+        delete from commenttb
+        where replyno = #{replyno}
+    </delete>
+</mapper>

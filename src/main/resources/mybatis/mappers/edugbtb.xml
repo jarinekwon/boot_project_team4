@@ -1,0 +1,12 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.dao.EdugbtbDAO">   
+    <select id="selectAll" resultType="com.boot.dto.EdugbtbDTO">
+    	select eduno, edunm
+    	from edugbtb
+    </select>
+</mapper>
+
+

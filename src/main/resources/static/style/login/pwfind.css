@@ -1,0 +1,131 @@
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: calc(100vh - 70px);
+    margin: 100px;
+    /* Subtract header height */
+ }
+
+.btn-group {
+	white-space: nowrap;
+	text-align: center;
+}
+ .btn-group button {
+    padding: 20px 53px;
+    border: solid 1px rgb(217, 217, 217);
+    background-color: #d3e4d4;
+    color: #fff;
+    cursor: pointer;
+    font-size: 22px;
+    margin-right: -2.5px;
+    margin-left: -2.5px;
+	padding-bottom: 15px;
+    font-family: 'GmarketSansMedium', Arial, sans-serif;
+ }
+
+ .btn-group button.active {
+     background-color: #45a049;
+ }
+
+ .btn-group button:focus {
+     outline: none;
+ }
+
+ form {
+	background-color: #fff;
+	border: solid 1px rgb(217, 217, 217);
+	border-top-color: #fff;
+	padding: 50 82;
+	width: 500px;
+	display: none;
+	font-size: 20px;
+	font-family: 'GmarketSansMedium', Arial, sans-serif;
+    /* Initially hide both forms */
+ }
+
+ form.visible {
+     display: block;
+     /* Display the active form */
+ }
+
+ form input {
+	font-family: 'GmarketSansMedium', Arial, sans-serif;
+	width: calc(100%);
+	padding: 10px;
+	margin: 10 0 20 0;
+	border: 1px solid #ccc;
+	font-size: 20px;
+	transition: border-color 0.3s; /* 변경 시 부드러운 효과를 위한 transition 추가 */
+ }
+ 
+ form input:focus {
+    outline: none; /* 기본 outline 제거 */
+    border-color: #8bc34a; /* 클릭 시 테두리 색 변경 */
+    box-shadow: 0 0 5px rgba(139, 195, 74, 0.5); /* 선택 시 약간의 그림자 효과 추가 */
+}
+
+ form .submit-btn {
+     width: 100%;
+     padding: 10px;
+     margin-top: 10px;
+     border: solid 0.5px green;
+     background-color: #4CAF50;
+     color: white;
+     font-size: 20px;
+     cursor: pointer;
+     font-family: 'GmarketSansMedium', Arial, sans-serif;
+ }
+
+ form button:hover {
+     background-color: #45a049;
+ }
+ .corp_check{
+	font-family: 'GmarketSansMedium', Arial, sans-serif;
+	width: 344px;
+	padding: 10px;
+	margin: 8px 0;
+	border: 1px solid #ccc;
+	font-size: 20px;
+	transition: border-color 0.3s; /* 변경 시 부드러운 효과를 위한 transition 추가 */
+ }
+ .mailsend{
+ 	width: 100%;
+ 	padding: 10px;
+     margin-top: 10px;
+     margin-bottom: 20;
+     border: solid 0.5px green;
+     background-color: #4CAF50;
+     color: white;
+     font-size: 20px;
+     cursor: pointer;
+     font-family: 'GmarketSansMedium', Arial, sans-serif;
+ }
+ .mail_ck{
+ 	width: 150px;
+ 	padding: 10px;
+     margin-top: 10px;
+     margin-bottom: 20;
+     border: solid 0.5px green;
+     background-color: #4CAF50;
+     color: white;
+     font-size: 20px;
+     cursor: pointer;
+     font-family: 'GmarketSansMedium', Arial, sans-serif;
+ }
+
+ 

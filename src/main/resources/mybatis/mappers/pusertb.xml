@@ -1,0 +1,115 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.dao.PusertbDAO">
+    <select id="ploginYn" resultType="com.boot.dto.PusertbDTO">
+        select ppass, pname from pusertb where puserid=#{puserid}
+    </select>
+    
+        <!--  일반  아이디찾기-->
+     <select id="pidfindYn" resultType="com.boot.dto.PusertbDTO">
+        select puserid, email, pname from pusertb where pname=#{pname}
+    </select>  
+
+	<!-- 일반 비밀번호 변경하기-->
+	<update id="pupdatePassword">
+		UPDATE pusertb
+	    SET ppass = #{ppass}
+	    WHERE puserid = #{puserid}
+	</update>
+    
+    <insert id="pRegisterInsert">
+		insert into pusertb (puserid, ppass, pname, email, phone, adate)
+	        	values(#{puserid},#{ppass},#{pname},#{email},#{phone}, now())
+    </insert>
+    
+    <select id="idchk" resultType="int">
+    	select count(puserid)
+    	from pusertb
+    	where puserid=#{puserid}
+    </select>
+    
+    <select id="PPasswordYn" parameterType="hashmap" resultType="com.boot.dto.PusertbDTO">
+        SELECT ppass FROM pusertb WHERE puserid = #{puserid}
+    </select>
+
+	<select id="PInfoView" parameterType="hashmap" resultType="com.boot.dto.PusertbDTO">
+<!--        SELECT puserid,ppass,pname,email,phone,adate,mdate -->
+<!--        FROM pusertb -->
+<!--        WHERE puserid = #{puserid}-->
+
+			SELECT a.puserid, a.ppass, a.pname, a.email, a.phone, a.adate, a.mdate, 
+				   COALESCE(b.boardcnt, 0) AS boardcnt, 
+				   COALESCE(c.jobaplycnt, 0) AS jobaplycnt, 
+				   COALESCE(d.jobaplylistcnt, 0) AS jobaplylistcnt,
+				   COALESCE(e.callcnt, 0) AS callcnt,
+				   coalesce(f.opencnt, 0) as opencnt,
+				   coalesce(g.offercnt, 0) as offercnt
+			FROM pusertb a 
+			LEFT OUTER JOIN 
+				(SELECT authorid, COUNT(*) AS boardcnt 
+				 FROM boardtb 
+				 GROUP BY authorid) b 
+			ON a.puserid = b.authorid
+			LEFT OUTER JOIN
+				(SELECT puserid, prchk, COUNT(*) AS jobaplycnt
+			     FROM jobaplytb
+			     where prchk=1
+			     GROUP BY puserid) c
+			ON a.puserid = c.puserid
+			LEFT OUTER JOIN
+				(SELECT puserid, COUNT(*) AS jobaplylistcnt
+			     FROM jobaplytb
+			     where puserid = #{puserid}
+			     GROUP BY puserid) d
+			ON a.puserid = d.puserid
+			LEFT OUTER JOIN
+				(SELECT authorid, COUNT(*) AS callcnt
+			     FROM calltb
+			     where authorid = #{puserid}
+			     GROUP BY authorid) e
+			ON a.puserid = e.authorid
+			left outer join (
+				select puserid, count(*) as opencnt
+			    from rviewtb
+			    where puserid = #{puserid}
+			    group by puserid
+			) f on (a.puserid = f.puserid)
+			left outer join (
+				select puserid, count(*) as offercnt
+				from offertb
+				group by puserid
+			) g on (a.puserid = g.puserid)
+			WHERE a.puserid = #{puserid}
+    </select>
+	
+	<update id="PModify" parameterType="hashmap">
+        UPDATE pusertb SET ppass = #{ppass}, phone = #{phone}, email = #{email}, mdate = now()
+        WHERE puserid = #{puserid}
+    </update>
+    
+    <delete id="PDelete">
+    	delete from pusertb
+    	where puserid = #{puserid}
+    </delete>
+    
+    <sql id="Info">
+    	<where>
+    		<if test="puserid != null and puserid != ''">
+    			puserid = #{puserid}
+    		</if>
+    	</where>
+    </sql>
+    <select id="PInfoAll" parameterType="hashmap" resultType="com.boot.dto.PusertbDTO">
+        select puserid, ppass, pname, email, phone, adate, mdate
+        from pusertb
+        <include refid="Info"/>
+    </select>
+    
+    <select id="puserphone" resultType="String">
+    	select phone
+    	from pusertb
+    	where puserid = #{puserid}
+    </select>
+</mapper>

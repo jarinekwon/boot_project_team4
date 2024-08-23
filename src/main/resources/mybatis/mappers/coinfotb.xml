@@ -1,0 +1,52 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.dao.CoinfotbDAO">
+     <insert id="insert">
+        insert into coinfotb
+        	(cuserid, csrno, cusnm, bossnm, loc01, loc02, indue, deptno, emnum, binfo, adate)
+		values
+			(#{cuserid} ,#{csrno}, #{cusnm}, #{bossnm}, #{loc01}, #{loc02}, #{indue}, #{deptno}
+			, #{emnum}, #{binfo}, now())
+    </insert>
+	
+	<select id="Coinfotblist" parameterType="hashmap" resultType="com.boot.dto.CoinfotbDTO">
+		SELECT * FROM coinfotb WHERE cuserid = #{cuserid}
+	</select>
+	
+	<update id="Coinmodify" parameterType="hashmap">
+		UPDATE coinfotb SET
+	        csrno = #{csrno},
+	        cusnm = #{cusnm},
+	        bossnm = #{bossnm},
+	        loc01 = #{loc01},
+	        loc02 = #{loc02},
+	        indue = #{indue},
+	        deptno = #{deptno},
+	        emnum = #{emnum},
+	        binfo = #{binfo},
+	        mdate = NOW()
+    	WHERE cuserid = #{cuserid}
+	</update>
+	
+	<select id="Coinfotbinfo" resultType="com.boot.dto.CoinfotbDTO">
+		select cuserid, csrno, cusnm, bossnm, loc01, loc02, deptno, deptnm, emnum,
+	   		   imgno, usetb, gubun, uuid, uploadpath, filename, indue, binfo
+		from
+		(
+			select a.cuserid, a.csrno, a.cusnm, a.bossnm, a.loc01, a.loc02, a.deptno, b.deptnm, a.emnum, a.indue, a.binfo,
+				   c.imgno, c.usetb, c.gubun, c.uuid, c.uploadpath, c.filename
+			from coinfotb a 
+			inner join sectortb b on (a.deptno = b.deptno)
+			left outer join imgtb c on (c.usetb = 'coinfotb' and c.gubun = concat(a.cuserid, '_', a.csrno))
+		) as a
+		where cuserid = #{cuserid} and csrno = #{csrno};
+	</select>
+	
+	<delete id="delete">
+		delete from coinfotb
+		where cuserid = #{cuserid}
+	</delete>
+	
+</mapper>

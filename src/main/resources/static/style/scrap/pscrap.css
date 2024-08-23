@@ -1,0 +1,201 @@
+@import url("../page.css");
+
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    
+}
+
+body {
+   font-family: Arial, Helvetica, sans-serif;
+   background-color: rgb(250, 250, 250);
+   margin: 0;
+   padding: 0;
+}
+
+.container {
+    width: 900px; /* 컨테이너의 폭을 조정 */
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 0 30 30 30;
+    border: 1px solid rgb(217, 217, 217);
+}
+h2{
+	font-size: 35px;
+	font-family: 'GmarketSansMedium';
+}
+
+.section{
+	height: 60px;
+	padding-bottom: 30px;
+	padding-left: 10px;
+	display: flex;
+	justify-content: space-between;
+	font-family: 'GmarketSansMedium';
+}
+.listSortArea{
+	display: flex; /* Flexbox 사용 */
+    align-items: center; /* 수직 정렬 */
+    padding: 20px 0;
+    background-color: rgb(240, 255, 240);
+/*     background-color: #ffffe3; */
+/*     border-top: 2px solid rgb(143, 215, 23); */
+/*     background-color: #f7f7f7; */
+/*     border-top: 2px solid rgb(0, 0, 0); */
+/*     border-bottom: 2px solid rgb(143, 245, 23); */
+    width: 100%;
+    font-family: 'GmarketSansMedium';
+}
+/* 삭제버튼  */
+.listSortArea button{
+    color: #409344;
+/*     border: solid 1px black; */
+    border: none;
+    padding: 10 15 8 15;
+    cursor: pointer;
+    font-size: 18;
+	background-color: rgb(240, 255, 240);
+    font-family: GmarketSansMedium;
+}
+.dropdown:hover{
+	background-color: rgb(240, 255, 240);
+	border: solid 2px rgb(143, 245, 23);
+/* 	border: solid 3px #aaa; */
+/* 	border-radius: 10px; */
+}
+.dropdown{
+	display: flex; /* Flexbox 사용 */
+    align-items: center; /* 수직 정렬 */
+	width: 135px;
+	height: 40;
+	
+	background-color: rgb(240, 255, 240);
+    cursor: default;
+    margin: 0em;
+    white-space: pre;
+    border-radius: 5;
+/*     border: solid 1px light-dark(rgb(118, 118, 118), rgb(133, 133, 133)); */
+	border: none;
+	font-size: 18px;
+	font-family: GmarketSansMedium;
+}
+
+.checkbox{
+	height: 20px;
+	width: 20px;
+}
+/* 컨테이너 헤더 부분 스타일적용 */
+.listSortArea > div {
+	padding-left: 15px;
+}
+
+.listSortArea > div:nth-child(2) {
+    flex: 0 0 75%; /* 두 번째 div의 너비를 70%로 설정 */
+}
+
+.listSortArea > div:nth-child(2) > button {
+    display: block; /* 버튼을 블록으로 설정 */
+	margin-left: 0; /* 버튼을 div의 왼쪽으로 정렬 */
+}
+
+.listSortArea > div:nth-child(3) {
+    flex: 1; /* 세 번째 div의 너비를 30%로 설정 */
+}
+
+/* 폼 안의 scrap_view부분 스타일적용부분 */
+.scrap_view > .checkbox {
+	padding-left: 15px;
+	margin: 0 20;
+}
+.scrap_view > div {
+	padding-left: 5px;
+}
+
+.scrap_view > div:nth-child(2) {
+    flex: 0 0 75%;  /* 두 번째 div의 너비를 70%로 설정 */
+}
+
+.scrap_view > div:nth-child(2) > button {
+    display: block; /* 버튼을 블록으로 설정 */
+	margin-left: 0; /* 버튼을 div의 왼쪽으로 정렬 */
+}
+
+.scrap_view > div:nth-child(3) {
+    flex: 1; /* 세 번째 div의 너비를 30%로 설정 */
+}
+
+.scrap_view{
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0; /* 패딩 조정 */
+    background-color: #fff;
+/*     margin-bottom: 10px; */
+    border-bottom: 1px solid #ddd;
+    transition: box-shadow 0.3s ease;
+    font-family: 'GmarketSansMedium';
+}
+
+.scrap_view:hover{
+	background-color: rgb(249, 255, 247);
+}
+.jobtitle{
+	font-size: 20px;
+	margin: 3 0;
+	font-family: 'GmarketSansMedium';
+}
+
+.jobtitle a{
+	text-decoration: none;
+	font-size: 20px;
+    font-weight: bold;
+    color: #000;
+	font-family: 'GmarketSansMedium';
+}
+.jobtitle a:hover {
+    color: #007bff;
+    font-family: 'GmarketSansMedium';
+}
+.criteria{
+	font-size: 14px;
+	color: gray;
+}
+.scrap_view_right{
+	display: flex;            /* Flexbox를 사용하여 레이아웃 조정 */
+    flex-direction: column;   /* 자식 요소를 상하로 배치 */
+    align-items: center;      /* 자식 요소를 수평으로 가운데 정렬 */
+    justify-content: center;  /* 자식 요소를 수직으로 가운데 정렬 */
+    gap: 10px;                /* 요소들 사이의 간격 조정 (선택사항) */
+    height: 100%;             /* 부모 컨테이너의 높이를 100%로 설정 (필요시) */
+    text-align: center;
+    font-family: 'GmarketSansMedium'; 
+}
+.apply_btn{
+	background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10 20 8 20;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    font-family: GmarketSansMedium;
+}
+.apply_btn:hover{
+	background-color: #008000;
+	font-family: 'GmarketSansMedium';
+}
+
+
+
+
+
+
+
+
+/* 밑줄 연두색상 */
+.aaaaa {
+	border-bottom: 2px solid rgb(143, 215, 23);
+}
+

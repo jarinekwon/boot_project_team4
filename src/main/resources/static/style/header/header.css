@@ -1,0 +1,132 @@
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: GmarketSansMedium;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(250, 250, 250);
+}
+
+.navbar {
+    display: flex;
+    /* grid-template-columns: 1fr 1fr; */
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(255, 255, 255);
+    padding: 10px 0px;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+    width: 100%;
+    min-width: 1480px;
+    height: 60px;
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    margin-right: 10px;
+    z-index: 3;
+}
+
+.navbar-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0px 20px;
+}
+
+.navbar-left h1 {
+    margin: 0;
+    font-size: 24px;
+    margin-right: 20px;
+    white-space: nowrap;
+}
+
+.navbar-left h1 a {
+    text-decoration: none;
+    color: #4CAF50;
+    line-height: 60px; /* 높이를 navbar와 맞추기 위해 60px로 설정 */
+}
+
+.navbar-left a {
+    text-decoration: none;
+    color: black;
+    margin: 0 10px;
+    white-space: nowrap;
+    line-height: 60px; /* 높이를 navbar와 맞추기 위해 60px로 설정 */
+}
+
+.navbar-right button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-family: GmarketSansMedium;
+}
+
+.navbar-left img{
+	width: 200px;
+}
+
+button a {
+    font-family: GmarketSansMedium;
+    text-decoration: none;
+    color: white;
+}
+
+.menu-dropdown {
+	margin: 0 10px 4px 10px;
+    position: relative; /* 부모 요소를 기준으로 자식 요소를 배치하기 위해 relative 설정 */
+    display: inline-block; /* 인라인 블록 요소로 설정하여 여러 요소가 한 줄에 배치되도록 함 */
+    cursor: pointer; /* 마우스를 올리면 커서가 손 모양으로 변경 */
+    outline: none; /* 클릭 시 발생하는 기본 포커스 스타일 제거 */
+}
+
+.arrow-down {
+    font-size: 15px; /* 화살표 크기 조정 */
+    margin-left: 5px; /* "님" 글씨와 화살표 사이 간격 추가 */
+}
+
+.content-dropdown {
+    display: none; /* 기본적으로 드롭다운 메뉴를 숨김 */
+    position: absolute; /* 부모 요소를 기준으로 절대 위치 지정 */
+    background-color: white; /* 드롭다운 메뉴의 배경색을 흰색으로 설정 */
+    min-width: 100px; /* 드롭다운 메뉴의 최소 너비 설정 */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* 그림자 효과 추가 */
+    z-index: 1; /* 다른 요소들보다 위에 표시되도록 z-index 설정 */
+    margin-top: 4px; /* 부모 요소와 드롭다운 메뉴 사이에 간격 추가 */
+    padding-top: 3px; /* 드롭다운 메뉴의 위쪽에 패딩 추가 */
+}
+/*
+.menu-dropdown:hover .content-dropdown{
+    display: block; 부모 요소나 드롭다운 메뉴에 마우스를 올리거나 포커스가 있을 때 드롭다운 메뉴를 표시
+}
+*/
+.menu-dropdown .content-dropdown.active{
+    display: block; /* 부모 요소나 드롭다운 메뉴에 마우스를 올리거나 포커스가 있을 때 드롭다운 메뉴를 표시 */
+}
+
+.content-dropdown a {
+    color: black; /* 링크 텍스트 색상을 검정색으로 설정 */
+    padding: 0px 3px; /* 링크 내부 여백 설정 (상하 여백을 줄임) */
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    display: block; /* 링크를 블록 요소로 설정하여 세로로 나열되도록 함 */
+    border-bottom: 1px solid #ddd; /* 링크 아래에 1px의 선을 추가 */
+}
+
+.content-dropdown a:hover {
+    background-color: #f1f1f1; /* 링크에 마우스를 올리면 배경색을 연한 회색으로 변경 */
+}
+
+.sessionTimeout {
+	font-size: 0.5em;
+}
